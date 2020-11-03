@@ -1,0 +1,80 @@
+*{
+    box-sizing: border-box;
+    font-family:'proxima-nova-extra-condensed';
+}
+body{
+    background-color: cadetblue;
+}
+h1 button{
+    font-size: 1em;
+}
+.control-group label{
+    display: block
+}
+.control-group input{
+    width: 100%;
+}
+.control-group input[type=number]{
+    width: 20%;
+}
+.control-group input[type=checkbox]{
+    width: auto;
+}
+.control-group input[id*=parameter]{
+    width: 12.5%;
+    float: left;
+}
+#oscilliscope{
+    width: 100%
+}
+[class*=span]{
+    float:left;
+    margin-right:1%;
+}
+.span-4{
+    width: 32.663%;
+}
+.span-6{
+    width: 49.5%;
+}
+.span-4 + .span-4 + .span-4, .span-6 + .span-6{
+    margin-right: 0;
+}
+legend, fieldset, article > div{
+    border: 1px solid steelblue;
+    border-radius: 5px;
+}
+fieldset{
+    margin-top: 1em;
+    background-color: lightgrey;
+}
+article{
+    flex-grow:  1;
+    width: 25%;
+    padding: 0.3em;
+}
+article > div{
+    margin-top: 0;
+    padding: 0.5em;
+    background-color: lightgrey;
+    height: 100%
+}
+legend {
+    background-color: steelblue;
+    padding: 0.25em 0.5em;
+    color: white;
+}
+.flex-root{
+    display: flex;
+    justify-content: space-around;
+    align-items: stretch;
+}
+.init-button{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    width:100%;
+    height:100%;
+}

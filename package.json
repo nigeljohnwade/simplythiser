@@ -1,0 +1,28 @@
+{
+  "name": "audio-context",
+  "version": "1.0.0",
+  "description": "Wrapper for web audio functioanlity",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/nigeljohnwade/AudioContext.git"
+  },
+  "author": "Nigel Wade",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nigeljohnwade/AudioContext/issues"
+  },
+  "homepage": "https://github.com/nigeljohnwade/AudioContext#readme",
+  "devDependencies": {
+    "babel-cli": "^6.11.4",
+    "babel-preset-es2015": "^6.13.2",
+    "npm-watch": "^0.1.6"
+  },
+  "scripts": {
+    "watch": "npm-watch",
+    "build": "babel src -d js"
+  },
+  "watch": {
+    "build": "src/*.js"
+  }
+}

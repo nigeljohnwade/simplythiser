@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Inchdown Reverb</title>
+    <link rel='stylesheet' href='../css/style.css'>
+    <!-- Typekit --> 
+    <script src="//use.typekit.net/bin2ptp.js"></script>
+    <script>try{Typekit.load();}catch(e){}</script>
+</head>
+
+<body>
+    <h1>Inchdown reverb</h1>
+<form>
+    <fieldset>
+        <legend>Oscilliscope</legend>
+        <div id='oscilliscope'>
+            <canvas id='oscilliscopeVisualiser'></canvas>
+        </div>
+    </fieldset>
+    <fieldset id='masterVolume'>
+        <legend>Master volume</legend>
+        <div class='control-group'>
+            <label for='volume'>Volume</label>
+            <input type='range' min='0' max='10' step='0.1' value='1' id='volume'>
+        </div>
+        <div class='control-group'>
+            <label for='pan'>Pan</label>
+            <input type='range' min='-1' max='1' step='0.01' value='0' id='pan'>
+        </div>
+    </fieldset>
+    <reverb-unit wetfilter='1000'>
+        <legend>Reverb</legend> 
+        <select id='reverUnitImpulseSource'>
+            <option value='../audio/Inchdown.wav'>Inchdown</option>
+            <option value='../audio/BathHouse.wav'>Bath house</option>
+            <option value='../audio/French 18th century Salon.wav.wav'>French salon</option>
+            <option value='../audio/In The Silo Revised.wav'>In the silo</option>
+        </select> 
+    </reverb-unit>
+</form>
+<template class='reverbUnit'>
+    <style>
+        .control-group input{
+            width: 100%;
+        }
+        .control-group label{
+            display: block
+        }
+        .control-group input[type=checkbox]{
+            width: auto;
+        }
+        legend, fieldset{
+            border: 1px solid steelblue;
+            border-radius: 5px;
+        }
+        fieldset{
+            margin-top: 1em;
+            background-color: lightgrey;
+        }
+    </style>
+    <fieldset id='reverbUnit' class='fieldset-group'>
+        <content select='legend'></content>
+        <div class='control-group'>
+            <label for='reverbUnitBypass'>
+                <input type='checkbox' id='reverbUnitBypass'>Bypass
+            </label>
+        </div>
+        <div class='control-group'>
+            <label for='reverUnitWetFilter'>Wet filter frequency</label>
+            <input type='range' min='50' max='15000' value='1000' id='reverbUnitWetFilter'>
+        </div>
+        <div class='control-group'>
+            <label for='reverUnitImpulseSource'>Impulse source</label>
+            <content select='select'></content>
+        </div>
+    </fieldset>
+</template>
+<script src='../js/require.js' data-main='../js/inchdown'></script>
+<script type='text/javascript'>
+    document.querySelector('#oscilliscopeVisualiser').height = '200';
+    document.querySelector('#oscilliscopeVisualiser').width = document.querySelector('#oscilliscope').clientWidth;
+    document.querySelector('#volume').addEventListener('change', function(event){
+        masterVolume.gain.value = event.target.value;
+    });
+    document.querySelector('#pan').addEventListener('change', function(event){
+        panner.pan.value = event.target.value;
+    });
+    document.querySelector('form').addEventListener('submit', function(event){
+        event && event.preventDefault()    
+    })
+</script>
+<script>
+    (function (i, s, o, g, r, a, m) {
+    i['GoogleAnalyticsObject'] = r; i[r] = i[r] || function () {
+        (i[r].q = i[r].q || []).push(arguments)
+    }, i[r].l = 1 * new Date(); a = s.createElement(o),
+        m = s.getElementsByTagName(o)[0]; a.async = 1; a.src = g; m.parentNode.insertBefore(a, m)
+    })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-520450-5', 'auto');
+    ga('send', 'pageview');
+
+</script>
+</body>
+</html>
