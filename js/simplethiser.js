@@ -1,4 +1,4 @@
-requirejs(['audioContext'], function(audioContext){
+function simplythiser(audioContext){
     window.context = audioContext.init();
     window.masterVolume = audioContext.createGainNode(context, context.destination, 1);
     window.convolver = audioContext.createConvolverNode(context, masterVolume, null);
@@ -167,4 +167,4 @@ requirejs(['audioContext'], function(audioContext){
         window.osc1.start(0);
         window.osc2.start(0);
     };
-});
+};
