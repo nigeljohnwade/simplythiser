@@ -12,377 +12,380 @@
     />
     <title>Simplethiser</title>
     <link
-        rel='stylesheet'
-        href='css/style.css'
+        rel="stylesheet"
+        href="css/style.css"
     >
     <!--    <link rel="manifest" href="manifest.json">-->
     <!-- Typekit -->
     <script src="//use.typekit.net/bin2ptp.js"></script>
-    <script>try {
-        Typekit.load();
-    } catch (e) {
-    }</script>
+    <script>
+        try {
+            Typekit.load();
+        } catch (e) {
+            console.log(e);
+        }
+    </script>
     <script src="js/AudioContextClass.js"></script>
 </head>
 
 <body style="overflow:hidden">
 
 <h1>Simplethiser
-    <button id='envelopeTrigger'>Trigger</button>
+    <button id="envelopeTrigger">Trigger</button>
 </h1>
 <form style="opacity: 0;">
     <fieldset>
         <legend>Oscilliscope</legend>
-        <div id='oscilliscope'>
-            <canvas id='oscilliscopeVisualiser'></canvas>
+        <div id="oscilliscope">
+            <canvas id="oscilliscopeVisualiser"></canvas>
         </div>
     </fieldset>
-    <fieldset id='masterVolume'>
+    <fieldset id="masterVolume">
         <legend>Master volume</legend>
-        <div class='control-group'>
-            <label for='volume'>Volume</label>
+        <div class="control-group">
+            <label for="volume">Volume</label>
             <input
-                type='range'
-                min='0'
-                max='10'
-                step='0.1'
-                value='1'
-                id='volume'
+                type="range"
+                min="0"
+                max="10"
+                step="0.1"
+                value="1"
+                id="volume"
                 data-destination="masterVolume"
                 data-parameter="gain"
             >
         </div>
-        <div class='control-group'>
-            <label for='pan'>Pan</label>
+        <div class="control-group">
+            <label for="pan">Pan</label>
             <input
-                type='range'
-                min='-1'
-                max='1'
-                step='0.01'
-                value='0'
-                id='pan'
+                type="range"
+                min="-1"
+                max="1"
+                step="0.01"
+                value="0"
+                id="pan"
             >
         </div>
     </fieldset>
     <fieldset
-        id='delay'
-        class='fieldset-group'
+        id="delay"
+        class="fieldset-group"
     >
         <legend>Delay</legend>
-        <div class='control-group'>
-            <label for='delayTime'>Delay time</label>
+        <div class="control-group">
+            <label for="delayTime">Delay time</label>
             <input
-                type='range'
-                min='0'
-                max='10'
-                step='0.01'
-                value='0.01'
-                id='delayTime'
+                type="range"
+                min="0"
+                max="10"
+                step="0.01"
+                value="0.01"
+                id="delayTime"
             >
         </div>
-        <div class='control-group'>
-            <label for='delayFeedback'>Feedback</label>
+        <div class="control-group">
+            <label for="delayFeedback">Feedback</label>
             <input
-                type='range'
-                min='0'
-                max='1'
-                step='0.001'
-                value='0.98'
-                id='delayFeedback'
+                type="range"
+                min="0"
+                max="1"
+                step="0.001"
+                value="0.98"
+                id="delayFeedback"
             >
         </div>
     </fieldset>
-    <fieldset id='dynamics'>
+    <fieldset id="dynamics">
         <legend>Dynamics</legend>
-        <div class='control-group'>
-            <label for='dynamicsThreshold'>Threshold</label>
+        <div class="control-group">
+            <label for="dynamicsThreshold">Threshold</label>
             <input
-                type='range'
-                min='-100'
-                max='0'
-                step='0.1'
-                value='-24'
-                id='dynamicsThreshold'
+                type="range"
+                min="-100"
+                max="0"
+                step="0.1"
+                value="-24"
+                id="dynamicsThreshold"
             >
         </div>
-        <div class='control-group'>
-            <label for='dynamicsKnee'>Knee</label>
+        <div class="control-group">
+            <label for="dynamicsKnee">Knee</label>
             <input
-                type='range'
-                min='0'
-                max='40'
-                step='1'
-                value='30'
-                id='dynamicsKnee'
+                type="range"
+                min="0"
+                max="40"
+                step="1"
+                value="30"
+                id="dynamicsKnee"
             >
         </div>
-        <div class='control-group'>
-            <label for='dynamicsRatio'>Ratio</label>
+        <div class="control-group">
+            <label for="dynamicsRatio">Ratio</label>
             <input
-                type='range'
-                min='1'
-                max='20'
-                step='0.1'
-                value='12'
-                id='dynamicsRatio'
+                type="range"
+                min="1"
+                max="20"
+                step="0.1"
+                value="12"
+                id="dynamicsRatio"
             >
         </div>
-        <div class='control-group'>
-            <label for='dynamicsAttack'>Attack</label>
+        <div class="control-group">
+            <label for="dynamicsAttack">Attack</label>
             <input
-                type='range'
-                min='0'
-                max='1'
-                step='0.001'
-                value='0.003'
-                id='dynamicsAttack'
+                type="range"
+                min="0"
+                max="1"
+                step="0.001"
+                value="0.003"
+                id="dynamicsAttack"
             >
         </div>
-        <div class='control-group'>
-            <label for='dynamicsRelease'>Release</label>
+        <div class="control-group">
+            <label for="dynamicsRelease">Release</label>
             <input
-                type='range'
-                min='0'
-                max='1'
-                step='0.001'
-                value='0.25'
-                id='dynamicsRelease'
+                type="range"
+                min="0"
+                max="1"
+                step="0.001"
+                value="0.25"
+                id="dynamicsRelease"
             >
         </div>
     </fieldset>
-    <fieldset id='vca'>
+    <fieldset id="vca">
         <legend>VCA</legend>
-        <div class='control-group'>
-            <label for='envelopeLevel'>Peak level</label>
+        <div class="control-group">
+            <label for="envelopeLevel">Peak level</label>
             <input
-                type='range'
-                min='-1'
-                max='1'
-                step='0.01'
-                value='1.00'
-                id='envelopeLevel'
+                type="range"
+                min="-1"
+                max="1"
+                step="0.01"
+                value="1.00"
+                id="envelopeLevel"
             >
         </div>
-        <div class='control-group'>
-            <label for='envelopeAttack'>Attack time</label>
+        <div class="control-group">
+            <label for="envelopeAttack">Attack time</label>
             <input
-                type='range'
-                min='0'
-                max='40'
-                step='0.01'
-                value='4.00'
-                id='envelopeAttack'
+                type="range"
+                min="0"
+                max="40"
+                step="0.01"
+                value="4.00"
+                id="envelopeAttack"
             >
         </div>
-        <div class='control-group'>
-            <label for='envelopeDecay'>Decay time</label>
+        <div class="control-group">
+            <label for="envelopeDecay">Decay time</label>
             <input
-                type='range'
-                min='0.1'
-                max='40'
-                step='0.01'
-                value='4.00'
-                id='envelopeDecay'
+                type="range"
+                min="0.1"
+                max="40"
+                step="0.01"
+                value="4.00"
+                id="envelopeDecay"
             >
         </div>
-        <div class='control-group'>
-            <label for='envelopeSustain'>Sustain level</label>
+        <div class="control-group">
+            <label for="envelopeSustain">Sustain level</label>
             <input
-                type='range'
-                min='0'
-                max='1'
-                step='0.01'
-                value='0.50'
-                id='envelopeSustain'
+                type="range"
+                min="0"
+                max="1"
+                step="0.01"
+                value="0.50"
+                id="envelopeSustain"
             >
         </div>
-        <div class='control-group'>
-            <label for='envelopeHold'>Hold time</label>
+        <div class="control-group">
+            <label for="envelopeHold">Hold time</label>
             <input
-                type='range'
-                min='0'
-                max='40'
-                step='0.01'
-                value='10.0'
-                id='envelopeHold'
+                type="range"
+                min="0"
+                max="40"
+                step="0.01"
+                value="10.0"
+                id="envelopeHold"
             >
         </div>
-        <div class='control-group'>
-            <label for='envelopeRelease'>Release time</label>
+        <div class="control-group">
+            <label for="envelopeRelease">Release time</label>
             <input
-                type='range'
-                min='0'
-                max='40'
-                step='0.01'
-                value='5.0'
-                id='envelopeRelease'
+                type="range"
+                min="0"
+                max="40"
+                step="0.01"
+                value="5.0"
+                id="envelopeRelease"
             >
         </div>
-        <div class='control-group'>
-            <label for='gain'>Distortion</label>
+        <div class="control-group">
+            <label for="gain">Distortion</label>
             <input
-                type='range'
-                min='0'
-                max='8000'
-                step='1'
-                value='800'
-                id='vcaDistortion'
+                type="range"
+                min="0"
+                max="8000"
+                step="1"
+                value="800"
+                id="vcaDistortion"
             >
         </div>
     </fieldset>
-    <fieldset id='filter1'>
+    <fieldset id="filter1">
         <legend>Filter</legend>
         <canvas
-            id='filterVisualiser'
-            width='500'
-            height='200'
+            id="filterVisualiser"
+            width="500"
+            height="200"
         ></canvas>
-        <div class='span-6'>
-            <div class='control-group'>
-                <label for='filter1frequency'>Filter frequency</label>
+        <div class="span-6">
+            <div class="control-group">
+                <label for="filter1frequency">Filter frequency</label>
                 <input
-                    type='range'
-                    min='1'
-                    max='8'
-                    step='0.001'
-                    value='1.5'
-                    id='filter1frequency'
+                    type="range"
+                    min="1"
+                    max="8"
+                    step="0.001"
+                    value="1.5"
+                    id="filter1frequency"
                 >
             </div>
-            <div class='control-group'>
-                <label for='filter1Q'>Filter Q</label>
+            <div class="control-group">
+                <label for="filter1Q">Filter Q</label>
                 <input
-                    type='number'
-                    min='0.0001'
-                    max='1000'
-                    step='0.0001'
-                    value='25'
-                    id='filter1Q'
+                    type="number"
+                    min="0.0001"
+                    max="1000"
+                    step="0.0001"
+                    value="25"
+                    id="filter1Q"
                 >
             </div>
-            <div class='control-group'>
-                <label for='filter1Gain'>Filter gain</label>
+            <div class="control-group">
+                <label for="filter1Gain">Filter gain</label>
                 <input
-                    type='range'
-                    min='-40'
-                    max='40'
-                    value='0'
-                    id='filter1Gain'
+                    type="range"
+                    min="-40"
+                    max="40"
+                    value="0"
+                    id="filter1Gain"
                 >
             </div>
-            <div class='control-group'>
-                <label for='filter1Type'>Filter type</label>
-                <select id='filter1Type'>
-                    <option value='lowpass'>Low Pass</option>
+            <div class="control-group">
+                <label for="filter1Type">Filter type</label>
+                <select id="filter1Type">
+                    <option value="lowpass">Low Pass</option>
                     <option
-                        value='bandpass'
+                        value="bandpass"
                         selected
                     >Band Pass
                     </option>
-                    <option value='highpass'>High Pass</option>
-                    <option value='lowshelf'>Low Shelf</option>
-                    <option value='highshelf'>High Shelf</option>
-                    <option value='peaking'>Peaking</option>
-                    <option value='notch'>Notch</option>
-                    <option value='allpass'>All Pass</option>
+                    <option value="highpass">High Pass</option>
+                    <option value="lowshelf">Low Shelf</option>
+                    <option value="highshelf">High Shelf</option>
+                    <option value="peaking">Peaking</option>
+                    <option value="notch">Notch</option>
+                    <option value="allpass">All Pass</option>
                 </select>
             </div>
         </div>
-        <div class='span-6'>
-            <div class='control-group'>
-                <label for='filter1LfoFrequency'>Filter LFO frequency</label>
+        <div class="span-6">
+            <div class="control-group">
+                <label for="filter1LfoFrequency">Filter LFO frequency</label>
                 <input
-                    type='range'
-                    min='0.01'
-                    max='8'
-                    step='0.01'
-                    value='0.01'
-                    id='filter1LfoFrequency'
+                    type="range"
+                    min="0.01"
+                    max="8"
+                    step="0.01"
+                    value="0.01"
+                    id="filter1LfoFrequency"
                 >
             </div>
-            <div class='control-group'>
-                <label for='lfo1Type'>Filter LFO waveform</label>
-                <select id='lfo1Type'>
-                    <option value='sine'>Sine</option>
-                    <option value='square'>Square</option>
-                    <option value='sawtooth'>Sawtooth</option>
-                    <option value='triangle'>Triangle</option>
+            <div class="control-group">
+                <label for="lfo1Type">Filter LFO waveform</label>
+                <select id="lfo1Type">
+                    <option value="sine">Sine</option>
+                    <option value="square">Square</option>
+                    <option value="sawtooth">Sawtooth</option>
+                    <option value="triangle">Triangle</option>
                 </select>
             </div>
-            <div class='control-group'>
-                <label for='lfo1Gain'>Filter LFO gain</label>
+            <div class="control-group">
+                <label for="lfo1Gain">Filter LFO gain</label>
                 <input
-                    type='range'
-                    min='0'
-                    max='100'
-                    step='0.1'
-                    value='100'
-                    id='filter1LfoGain'
+                    type="range"
+                    min="0"
+                    max="100"
+                    step="0.1"
+                    value="100"
+                    id="filter1LfoGain"
                 >
             </div>
         </div>
     </fieldset>
     <fieldset
-        id='oscillators'
-        class='fieldset-group'
+        id="oscillators"
+        class="fieldset-group"
     >
         <legend>Oscillators</legend>
-        <div class='control-group'>
-            <label for='oscillator1Octave'>Osc1 frequency</label>
+        <div class="control-group">
+            <label for="oscillator1Octave">Osc1 frequency</label>
             <input
-                type='range'
-                min='1'
-                max='8'
-                step='0.001'
-                value='1.5'
-                id='oscillator1Octave'
+                type="range"
+                min="1"
+                max="8"
+                step="0.001"
+                value="1.5"
+                id="oscillator1Octave"
             >
         </div>
-        <div class='control-group'>
-            <label for='oscillator2Detune'>Osc2 detune</label>
+        <div class="control-group">
+            <label for="oscillator2Detune">Osc2 detune</label>
             <input
-                type='range'
-                min='-100'
-                max='100'
-                value='3'
-                id='oscillator2Detune'
+                type="range"
+                min="-100"
+                max="100"
+                value="3"
+                id="oscillator2Detune"
             >
         </div>
-        <div class='control-group'>
-            <label for='oscillator2Octave'>Osc2 octave</label>
+        <div class="control-group">
+            <label for="oscillator2Octave">Osc2 octave</label>
             <input
-                type='range'
-                min='-2'
-                max='2'
-                step='1'
-                value='-2'
-                id='oscillator2Octave'
+                type="range"
+                min="-2"
+                max="2"
+                step="1"
+                value="-2"
+                id="oscillator2Octave"
             >
         </div>
-        <div class='control-group'>
-            <label for='oscillator1Type'>Osc1 waveform</label>
-            <select id='oscillator1Type'>
-                <option value='sine'>Sine</option>
+        <div class="control-group">
+            <label for="oscillator1Type">Osc1 waveform</label>
+            <select id="oscillator1Type">
+                <option value="sine">Sine</option>
                 <option
-                    value='square'
+                    value="square"
                     selected
                 >Square
                 </option>
-                <option value='sawtooth'>Sawtooth</option>
-                <option value='triangle'>Triangle</option>
+                <option value="sawtooth">Sawtooth</option>
+                <option value="triangle">Triangle</option>
             </select>
         </div>
-        <div class='control-group'>
-            <label for='oscillator2Type'>Osc2 waveform</label>
-            <select id='oscillator2Type'>
-                <option value='sine'>Sine</option>
-                <option value='square'>Square</option>
+        <div class="control-group">
+            <label for="oscillator2Type">Osc2 waveform</label>
+            <select id="oscillator2Type">
+                <option value="sine">Sine</option>
+                <option value="square">Square</option>
                 <option
-                    value='sawtooth'
+                    value="sawtooth"
                     selected
                 >Sawtooth
                 </option>
-                <option value='triangle'>Triangle</option>
+                <option value="triangle">Triangle</option>
             </select>
         </div>
     </fieldset>
@@ -394,8 +397,8 @@
 >
     Start
 </button>
-<script src='js/simplethiser.js'></script>
-<script type='text/javascript'>
+<script src="js/simplethiser.js"></script>
+<script type="text/javascript">
     simplythiser(new AudioContextClass());
     document.querySelector('#oscilliscopeVisualiser').height = '200';
     document.querySelector('#oscilliscopeVisualiser').width = document.querySelector('#oscilliscope').clientWidth;
