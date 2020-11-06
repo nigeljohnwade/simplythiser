@@ -2,7 +2,7 @@ function simplythiser(audioContext){
     window.context = audioContext.init();
     window.masterVolume = audioContext.createGainNode(context, context.destination, 1);
     window.convolver = audioContext.createConvolverNode(context, masterVolume, null);
-    audioContext.getAudioByXhr('../audio/In The Silo Revised.wav', window.convolver);
+    audioContext.getAudioByXhr('audio/In The Silo Revised.wav', window.convolver);
     window.panner = audioContext.createStereoPannerNode(context, convolver, 0);
     window.analyser = audioContext.createAnalyserNode(context, panner);
     window.delay = audioContext.createDelayNode(context, analyser, 0.5);
