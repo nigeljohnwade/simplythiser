@@ -400,49 +400,50 @@
 <script src="js/simplythiser.js"></script>
 <script type="text/javascript">
     simplythiser(new AudioContextClass());
-    document.querySelector('#oscilliscopeVisualiser').height = '200';
-    document.querySelector('#oscilliscopeVisualiser').width = document.querySelector('#oscilliscope').clientWidth;
-    document.querySelector('input').addEventListener('change', function (event) {
+    const $ = document.querySelector.bind(document);
+    $('#oscilliscopeVisualiser').height = '200';
+    $('#oscilliscopeVisualiser').width = $('#oscilliscope').clientWidth;
+    $('input').addEventListener('change', function (event) {
         window[event.target.dataset.destination][event.target.dataset.parameter].exponentialRampToValueAtTime(event.target.value, context.currentTime + 0.02);
     });
-    /*document.querySelector('#volume').addEventListener('change', function(event){
+    /*$('#volume').addEventListener('change', function(event){
         masterVolume.gain.exponentialRampToValueAtTime(event.target.value, context.currentTime + 0.02)
     });*/
-    document.querySelector('#pan').addEventListener('change', function (event) {
+    $('#pan').addEventListener('change', function (event) {
         panner.pan.exponentialRampToValueAtTime(event.target.value, context.currentTime + 0.02);
     });
-    document.querySelector('#delayTime').addEventListener('change', function (event) {
+    $('#delayTime').addEventListener('change', function (event) {
         delay.delayTime.exponentialRampToValueAtTime(event.target.value, context.currentTime + 0.02);
     });
-    document.querySelector('#delayFeedback').addEventListener('change', function (event) {
+    $('#delayFeedback').addEventListener('change', function (event) {
         delayFeedback.gain.exponentialRampToValueAtTime(event.target.value, context.currentTime + 0.02);
     });
-    document.querySelector('#dynamicsThreshold').addEventListener('change', function (event) {
+    $('#dynamicsThreshold').addEventListener('change', function (event) {
         compressor.threshold.exponentialRampToValueAtTime(event.target.value, context.currentTime + 0.02);
     });
-    document.querySelector('#dynamicsKnee').addEventListener('change', function (event) {
+    $('#dynamicsKnee').addEventListener('change', function (event) {
         compressor.knee.exponentialRampToValueAtTime(event.target.value, context.currentTime + 0.02);
     });
-    document.querySelector('#dynamicsRatio').addEventListener('change', function (event) {
+    $('#dynamicsRatio').addEventListener('change', function (event) {
         compressor.ratio.exponentialRampToValueAtTime(event.target.value, context.currentTime + 0.02);
     });
-    document.querySelector('#dynamicsAttack').addEventListener('change', function (event) {
+    $('#dynamicsAttack').addEventListener('change', function (event) {
         compressor.attack.exponentialRampToValueAtTime(event.target.value, context.currentTime + 0.02);
     });
-    document.querySelector('#dynamicsRelease').addEventListener('change', function (event) {
+    $('#dynamicsRelease').addEventListener('change', function (event) {
         compressor.release.exponentialRampToValueAtTime(event.target.value, context.currentTime + 0.02);
     });
-    document.querySelector('#envelopeTrigger').addEventListener('click', function (event) {
+    $('#envelopeTrigger').addEventListener('click', function (event) {
         envelope(
             context,
             gainStage.gain,
             0.0,
-            parseFloat(document.querySelector('#envelopeLevel').value),
-            parseFloat(document.querySelector('#envelopeAttack').value),
-            parseFloat(document.querySelector('#envelopeDecay').value),
-            parseFloat(document.querySelector('#envelopeSustain').value * document.querySelector('#envelopeLevel').value),
-            parseFloat(document.querySelector('#envelopeHold').value),
-            parseFloat(document.querySelector('#envelopeRelease').value)
+            parseFloat($('#envelopeLevel').value),
+            parseFloat($('#envelopeAttack').value),
+            parseFloat($('#envelopeDecay').value),
+            parseFloat($('#envelopeSustain').value * $('#envelopeLevel').value),
+            parseFloat($('#envelopeHold').value),
+            parseFloat($('#envelopeRelease').value)
         );
         //runRandomValueSequencer(context, 2, [
         //    [{target: filter1.frequency, min: 50, max: 800}],
@@ -463,51 +464,51 @@
         //    [{target: filter1.frequency, min: 250, max: 1400}]
         //    ])
     });
-    document.querySelector('#vcaDistortion').addEventListener('change', function (event) {
+    $('#vcaDistortion').addEventListener('change', function (event) {
         distortion.setCurve(Number(event.target.value));
         setTimeout(drawWaveform, 500);
     });
-    document.querySelector('#filter1frequency').addEventListener('change', function (event) {
+    $('#filter1frequency').addEventListener('change', function (event) {
         filter1.frequency.exponentialRampToValueAtTime(Math.pow(2, event.target.value) * 55, context.currentTime + 0.02);
     });
-    document.querySelector('#filter1Q').addEventListener('change', function (event) {
+    $('#filter1Q').addEventListener('change', function (event) {
         filter1.Q.exponentialRampToValueAtTime(event.target.value, context.currentTime + 0.02);
     });
-    document.querySelector('#filter1Gain').addEventListener('change', function (event) {
+    $('#filter1Gain').addEventListener('change', function (event) {
         filter1.gain.exponentialRampToValueAtTime(event.target.value, context.currentTime + 0.02);
     });
-    document.querySelector('#filter1Type').addEventListener('change', function (event) {
+    $('#filter1Type').addEventListener('change', function (event) {
         filter1.type = event.target.value;
     });
-    document.querySelector('#filter1LfoFrequency').addEventListener('change', function (event) {
+    $('#filter1LfoFrequency').addEventListener('change', function (event) {
         lfo1.oscillator.frequency.exponentialRampToValueAtTime(event.target.value, context.currentTime + 0.02);
     });
-    document.querySelector('#filter1LfoGain').addEventListener('change', function (event) {
+    $('#filter1LfoGain').addEventListener('change', function (event) {
         lfo1.gain.gain.exponentialRampToValueAtTime(event.target.value, context.currentTime + 0.02);
     });
-    document.querySelector('#lfo1Type').addEventListener('change', function (event) {
+    $('#lfo1Type').addEventListener('change', function (event) {
         lfo1.oscillator.type = event.target.value;
     });
-    document.querySelector('#oscillator1Octave').addEventListener('change', function (event) {
+    $('#oscillator1Octave').addEventListener('change', function (event) {
         osc1.frequency.exponentialRampToValueAtTime(Math.pow(2, event.target.value) * 55, 0.002);
-        osc2.frequency.exponentialRampToValueAtTime(osc1.frequency.value * Math.pow(2, document.querySelector('#oscillator2Octave').value), 0.02);
+        osc2.frequency.exponentialRampToValueAtTime(osc1.frequency.value * Math.pow(2, $('#oscillator2Octave').value), 0.02);
     });
-    document.querySelector('#oscillator2Detune').addEventListener('change', function (event) {
+    $('#oscillator2Detune').addEventListener('change', function (event) {
         osc2.detune.exponentialRampToValueAtTime(event.target.value, context.currentTime + 0.02);
     });
-    document.querySelector('#oscillator2Octave').addEventListener('change', function (event) {
+    $('#oscillator2Octave').addEventListener('change', function (event) {
         osc2.frequency.value = osc1.frequency.value * Math.pow(2, event.target.value);
     });
-    document.querySelector('#oscillator1Type').addEventListener('change', function (event) {
+    $('#oscillator1Type').addEventListener('change', function (event) {
         osc1.type = event.target.value;
     });
-    document.querySelector('#oscillator2Type').addEventListener('change', function (event) {
+    $('#oscillator2Type').addEventListener('change', function (event) {
         osc2.type = event.target.value;
     });
-    document.querySelector('#filter1Type').addEventListener('change', function (event) {
+    $('#filter1Type').addEventListener('change', function (event) {
         filter1.type = event.target.value;
     });
-    document.querySelector('form').addEventListener('submit', function (event) {
+    $('form').addEventListener('submit', function (event) {
         event && event.preventDefault();
     });
 </script>
