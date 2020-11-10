@@ -1,24 +1,26 @@
 {
-  "name": "audio-context",
+  "name": "simplythiser",
   "version": "1.0.0",
   "description": "Wrapper for web audio functioanlity",
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/nigeljohnwade/AudioContext.git"
+    "url": "git+ssh://git@github.com/nigeljohnwade/Simplythiser.git"
   },
   "author": "Nigel Wade",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/nigeljohnwade/AudioContext/issues"
+    "url": "https://github.com/nigeljohnwade/Simplythiser/issues"
   },
-  "homepage": "https://github.com/nigeljohnwade/AudioContext#readme",
+  "homepage": "https://github.com/nigeljohnwade/Simplythiser#readme",
   "devDependencies": {
     "babel-cli": "^6.11.4",
     "babel-preset-es2015": "^6.13.2",
+    "http-server": "^0.12.3",
     "npm-watch": "^0.1.6"
   },
   "scripts": {
+    "start": "http-server",
     "watch": "npm-watch",
     "build": "babel src -d js"
   },
