@@ -1,55 +1,57 @@
 function simplythiser(audioContext){
-    window.context = audioContext.init();
-    window.masterVolume = audioContext.createGainNode(context, context.destination, 1);
-    window.convolver = audioContext.createConvolverNode(context, masterVolume, null);
-    audioContext.getAudioByXhr('audio/In The Silo Revised.wav', window.convolver);
-    window.panner = audioContext.createStereoPannerNode(context, convolver, 0);
-    window.analyser = audioContext.createAnalyserNode(context, panner);
-    window.delay = audioContext.createDelayNode(context, analyser, 0.5);
-    window.delayFeedback = audioContext.createGainNode(context, delay, 0.8);
+    const g$ = window;
+    const $ = document.querySelector.bind(document);
+    g$.context = audioContext.init();
+    g$.masterVolume = audioContext.createGainNode(context, context.destination, 1);
+    g$.convolver = audioContext.createConvolverNode(context, masterVolume, null);
+    audioContext.getAudioByXhr('audio/In The Silo Revised.wav', g$.convolver);
+    g$.panner = audioContext.createStereoPannerNode(context, convolver, 0);
+    g$.analyser = audioContext.createAnalyserNode(context, panner);
+    g$.delay = audioContext.createDelayNode(context, analyser, 0.5);
+    g$.delayFeedback = audioContext.createGainNode(context, delay, 0.8);
     delay.connect(delayFeedback);
-    window.compressor = audioContext.createDynamicsCompressorNode(
+    g$.compressor = audioContext.createDynamicsCompressorNode(
         context,
         delay,
-        document.querySelector('#dynamicsThreshold').value,
-        document.querySelector('#dynamicsKnee').value,
-        document.querySelector('#dynamicsRatio').value,
-        document.querySelector('#dynamicsAttack').value,
-        document.querySelector('#dynamicsRelease').value
+        $('#dynamicsThreshold').value,
+        $('#dynamicsKnee').value,
+        $('#dynamicsRatio').value,
+        $('#dynamicsAttack').value,
+        $('#dynamicsRelease').value
         );
     compressor.connect(analyser);
-    window.gainStage = audioContext.createGainNode(context, compressor, 0);
-    window.distortion = audioContext.createWaveShaperNode(context, gainStage, audioContext.makeDistortionCurve(400), 'none' );
+    g$.gainStage = audioContext.createGainNode(context, compressor, 0);
+    g$.distortion = audioContext.createWaveShaperNode(context, gainStage, audioContext.makeDistortionCurve(400), 'none' );
     distortion.setCurve = function(amount){
         distortion.curve = audioContext.makeDistortionCurve(amount);
     }
-    window.filter1 = audioContext.createBiquadFilterNode(
+    g$.filter1 = audioContext.createBiquadFilterNode(
         context,
         distortion,
-        document.querySelector('#filter1Type').value,
-        Math.pow(2, document.querySelector('#filter1frequency').value) * 55,
-        document.querySelector('#filter1Q').value,
-        document.querySelector('#filter1Gain').value
+        $('#filter1Type').value,
+        Math.pow(2, $('#filter1frequency').value) * 55,
+        $('#filter1Q').value,
+        $('#filter1Gain').value
         );
-    window.osc1 = audioContext.createOscillatorNode(
+    g$.osc1 = audioContext.createOscillatorNode(
         context,
         filter1,
-        document.querySelector('#oscillator1Type').value,
-        Math.pow(2, document.querySelector('#oscillator1Octave').value) * 55,
+        $('#oscillator1Type').value,
+        Math.pow(2, $('#oscillator1Octave').value) * 55,
         0
         );
-    window.osc2 = audioContext.createOscillatorNode(
+    g$.osc2 = audioContext.createOscillatorNode(
         context,
         filter1,
-        document.querySelector('#oscillator2Type').value,
-        (Math.pow(2, document.querySelector('#oscillator1Octave').value) * 55) * Math.pow(2, document.querySelector('#oscillator2Octave').value),
-        document.querySelector('#oscillator2Detune').value
+        $('#oscillator2Type').value,
+        (Math.pow(2, $('#oscillator1Octave').value) * 55) * Math.pow(2, $('#oscillator2Octave').value),
+        $('#oscillator2Detune').value
         );
-    window.lfo1 = audioContext.createLfoNode(context, filter1.frequency, 'sine', 0.1, 100);
-    window.envelope = function(context, audioParam, startValue, peakValue, attackTime, decayTime, sustainValue, holdTime, releaseTime){
+    g$.lfo1 = audioContext.createLfoNode(context, filter1.frequency, 'sine', 0.1, 100);
+    g$.envelope = function(context, audioParam, startValue, peakValue, attackTime, decayTime, sustainValue, holdTime, releaseTime){
         audioContext.linearEnvelopeADSR(context, audioParam, startValue, peakValue, attackTime, decayTime, sustainValue, holdTime, releaseTime);
     };
-    window.runRandomValueSequencer = function(context, interval, objects){
+    g$.runRandomValueSequencer = function(context, interval, objects){
         const now = context.currentTime;
         for(var i = 0, t = 1; i < objects.length; i++, t++){
             objects[i].forEach(function(element, index, array){
@@ -63,14 +65,14 @@ function simplythiser(audioContext){
             }
         )}
     }
-    window.setValue = function(param, value, time){
+    g$.setValue = function(param, value, time){
         param.exponentialRampToValueAtTime(value, time);
     }
-    window.bufferLength = analyser.frequencyBinCount;
-    window.dataArray = new Uint8Array(bufferLength);
-    var canvas = document.querySelector("#oscilliscope canvas");
-    window.canvasCtx = canvas.getContext("2d"); 
-    window.drawWaveform = function(){
+    g$.bufferLength = analyser.frequencyBinCount;
+    g$.dataArray = new Uint8Array(bufferLength);
+    var canvas = $("#oscilliscope canvas");
+    g$.canvasCtx = canvas.getContext("2d"); 
+    g$.drawWaveform = function(){
         analyser.getByteTimeDomainData(dataArray);
         canvasCtx.fillStyle = 'rgb(0, 0, 0)';
         canvasCtx.lineWidth = 1;
@@ -91,7 +93,7 @@ function simplythiser(audioContext){
         canvasCtx.lineTo(canvas.width, canvas.height/2);
         canvasCtx.stroke();
     }
-    window.drawFrequencyGraph = function() {
+    g$.drawFrequencyGraph = function() {
         analyser.getByteFrequencyData(dataArray);
         canvasCtx.fillStyle = 'rgb(0, 0, 0)';
         canvasCtx.fillRect(0, 0, canvasCtx.canvas.width, canvasCtx.canvas.height);
@@ -107,9 +109,9 @@ function simplythiser(audioContext){
         canvasCtx.lineTo(canvas.width, canvas.height / 2);
         canvasCtx.stroke();
     }
-    var filterCanvas = document.querySelector("#filter1 canvas");
-    window.filterCanvasCtx = filterCanvas.getContext("2d"); 
-    window.drawFilterResponse = function(filter){
+    var filterCanvas = $("#filter1 canvas");
+    g$.filterCanvasCtx = filterCanvas.getContext("2d"); 
+    g$.drawFilterResponse = function(filter){
         const width = filterCanvasCtx.canvas.width;
         const height = filterCanvasCtx.canvas.height;
         var noctaves = 8;
@@ -151,7 +153,7 @@ function simplythiser(audioContext){
         filterCanvasCtx.lineTo(filterCanvas.width, filterCanvas.height/2);
         filterCanvasCtx.stroke();
     }
-    window.animateDisplay = function(){
+    g$.animateDisplay = function(){
         canvasCtx.clearRect(0, 0, canvasCtx.canvas.width, canvasCtx.canvas.height);
         drawFrequencyGraph();
         drawWaveform();
@@ -160,11 +162,11 @@ function simplythiser(audioContext){
 
     }
     animateDisplay()
-    window.initSimplethiser = function(){
-        document.querySelector('form').style.opacity = 1;
-        document.querySelector('body').style.overflow = 'auto';
-        document.querySelector('.init-button').style.display = 'none';
-        window.osc1.start(0);
-        window.osc2.start(0);
+    g$.initSimplethiser = function(){
+        $('form').style.opacity = 1;
+        $('body').style.overflow = 'auto';
+        $('.init-button').style.display = 'none';
+        g$.osc1.start(0);
+        g$.osc2.start(0);
     };
 };
