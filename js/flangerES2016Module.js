@@ -7,13 +7,13 @@ var _audioContextES2016Module2 = _interopRequireDefault(_audioContextES2016Modul
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 window.context = _audioContextES2016Module2.default.init();
-window.masterVolume = _audioContextES2016Module2.default.createGainNode(context, context.destination, 1);
-window.panner = _audioContextES2016Module2.default.createStereoPannerNode(context, window.masterVolume, 0);
-window.analyser = _audioContextES2016Module2.default.createAnalyserNode(context, panner);
-window.flangerUnit = _audioContextES2016Module2.default.createDualFlangerUnit(context, analyser);
-window.compressor = _audioContextES2016Module2.default.createCompressorUnit(context, flangerUnit.input);
-window.gainStage = _audioContextES2016Module2.default.createGainNode(context, compressor.input, 1);
-window.input = _audioContextES2016Module2.default.createUserMediaNode(context, gainStage);
+window.masterVolume = _audioContextES2016Module2.default.createGainNode(ac, ac.destination, 1);
+window.panner = _audioContextES2016Module2.default.createStereoPannerNode(ac, window.masterVolume, 0);
+window.analyser = _audioContextES2016Module2.default.createAnalyserNode(ac, panner);
+window.flangerUnit = _audioContextES2016Module2.default.createDualFlangerUnit(ac, analyser);
+window.compressor = _audioContextES2016Module2.default.createCompressorUnit(ac, flangerUnit.input);
+window.gainStage = _audioContextES2016Module2.default.createGainNode(ac, compressor.input, 1);
+window.input = _audioContextES2016Module2.default.createUserMediaNode(ac, gainStage);
 window.bufferLength = analyser.frequencyBinCount;
 window.dataArray = new Uint8Array(bufferLength);
 var canvas = document.querySelector("#oscilliscope canvas");

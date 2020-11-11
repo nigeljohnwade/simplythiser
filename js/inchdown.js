@@ -1,10 +1,10 @@
 'use strict';
 requirejs(['audioContext'], function(audioContext){
     window.context = audioContext.init();
-    window.masterVolume = audioContext.createGainNode(context, context.destination, 1);
-    window.panner = audioContext.createStereoPannerNode(context, window.masterVolume, 0);
-    window.analyser = audioContext.createAnalyserNode(context, window.panner);
-    window.reverbUnit = audioContext.createReverbUnit(context, window.analyser);
+    window.masterVolume = audioContext.createGainNode(ac, ac.destination, 1);
+    window.panner = audioContext.createStereoPannerNode(ac, window.masterVolume, 0);
+    window.analyser = audioContext.createAnalyserNode(ac, window.panner);
+    window.reverbUnit = audioContext.createReverbUnit(ac, window.analyser);
     audioContext.getAudioByXhr('../audio/BathHouse.wav', window.reverbUnit.convolver);
 
     //UI component code
@@ -43,7 +43,7 @@ requirejs(['audioContext'], function(audioContext){
     });
 
     
-    window.input = audioContext.createUserMediaNode(context, reverbUnit.input);
+    window.input = audioContext.createUserMediaNode(ac, reverbUnit.input);
     window.bufferLength = analyser.frequencyBinCount;
     window.dataArray = new Uint8Array(bufferLength);
     var canvas = document.querySelector("#oscilliscope canvas");

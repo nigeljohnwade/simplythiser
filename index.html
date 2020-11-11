@@ -25,7 +25,7 @@
             console.log(e);
         }
     </script>
-    <script src="js/AudioContextClass.js"></script>
+    <script src="js/AudioContextHelperClass.js"></script>
 </head>
 
 <body style="overflow:hidden">
@@ -399,43 +399,43 @@
 </button>
 <script src="js/simplythiser.js"></script>
 <script type="text/javascript">
-    simplythiser(new AudioContextClass());
+    simplythiser(new AudioContextHelperClass());
     const $ = document.querySelector.bind(document);
     $('#oscilliscopeVisualiser').height = '200';
     $('#oscilliscopeVisualiser').width = $('#oscilliscope').clientWidth;
     $('input').addEventListener('change', function (event) {
-        window[event.target.dataset.destination][event.target.dataset.parameter].exponentialRampToValueAtTime(event.target.value, context.currentTime + 0.02);
+        window[event.target.dataset.destination][event.target.dataset.parameter].exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
     });
     /*$('#volume').addEventListener('change', function(event){
-        masterVolume.gain.exponentialRampToValueAtTime(event.target.value, context.currentTime + 0.02)
+        masterVolume.gain.exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02)
     });*/
     $('#pan').addEventListener('change', function (event) {
-        panner.pan.exponentialRampToValueAtTime(event.target.value, context.currentTime + 0.02);
+        panner.pan.exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
     });
     $('#delayTime').addEventListener('change', function (event) {
-        delay.delayTime.exponentialRampToValueAtTime(event.target.value, context.currentTime + 0.02);
+        delay.delayTime.exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
     });
     $('#delayFeedback').addEventListener('change', function (event) {
-        delayFeedback.gain.exponentialRampToValueAtTime(event.target.value, context.currentTime + 0.02);
+        delayFeedback.gain.exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
     });
     $('#dynamicsThreshold').addEventListener('change', function (event) {
-        compressor.threshold.exponentialRampToValueAtTime(event.target.value, context.currentTime + 0.02);
+        compressor.threshold.exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
     });
     $('#dynamicsKnee').addEventListener('change', function (event) {
-        compressor.knee.exponentialRampToValueAtTime(event.target.value, context.currentTime + 0.02);
+        compressor.knee.exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
     });
     $('#dynamicsRatio').addEventListener('change', function (event) {
-        compressor.ratio.exponentialRampToValueAtTime(event.target.value, context.currentTime + 0.02);
+        compressor.ratio.exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
     });
     $('#dynamicsAttack').addEventListener('change', function (event) {
-        compressor.attack.exponentialRampToValueAtTime(event.target.value, context.currentTime + 0.02);
+        compressor.attack.exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
     });
     $('#dynamicsRelease').addEventListener('change', function (event) {
-        compressor.release.exponentialRampToValueAtTime(event.target.value, context.currentTime + 0.02);
+        compressor.release.exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
     });
     $('#envelopeTrigger').addEventListener('click', function (event) {
         envelope(
-            context,
+            ac,
             gainStage.gain,
             0.0,
             parseFloat($('#envelopeLevel').value),
@@ -445,7 +445,7 @@
             parseFloat($('#envelopeHold').value),
             parseFloat($('#envelopeRelease').value)
         );
-        //runRandomValueSequencer(context, 2, [
+        //runRandomValueSequencer(ac, 2, [
         //    [{target: filter1.frequency, min: 50, max: 800}],
         //    [{target: filter1.frequency, min: 250, max: 1400}],
         //    [{target: filter1.frequency, min: 50, max: 800}],
@@ -469,22 +469,22 @@
         setTimeout(drawWaveform, 500);
     });
     $('#filter1frequency').addEventListener('change', function (event) {
-        filter1.frequency.exponentialRampToValueAtTime(Math.pow(2, event.target.value) * 55, context.currentTime + 0.02);
+        filter1.frequency.exponentialRampToValueAtTime(Math.pow(2, event.target.value) * 55, ac.currentTime + 0.02);
     });
     $('#filter1Q').addEventListener('change', function (event) {
-        filter1.Q.exponentialRampToValueAtTime(event.target.value, context.currentTime + 0.02);
+        filter1.Q.exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
     });
     $('#filter1Gain').addEventListener('change', function (event) {
-        filter1.gain.exponentialRampToValueAtTime(event.target.value, context.currentTime + 0.02);
+        filter1.gain.exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
     });
     $('#filter1Type').addEventListener('change', function (event) {
         filter1.type = event.target.value;
     });
     $('#filter1LfoFrequency').addEventListener('change', function (event) {
-        lfo1.oscillator.frequency.exponentialRampToValueAtTime(event.target.value, context.currentTime + 0.02);
+        lfo1.oscillator.frequency.exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
     });
     $('#filter1LfoGain').addEventListener('change', function (event) {
-        lfo1.gain.gain.exponentialRampToValueAtTime(event.target.value, context.currentTime + 0.02);
+        lfo1.gain.gain.exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
     });
     $('#lfo1Type').addEventListener('change', function (event) {
         lfo1.oscillator.type = event.target.value;
@@ -494,7 +494,7 @@
         osc2.frequency.exponentialRampToValueAtTime(osc1.frequency.value * Math.pow(2, $('#oscillator2Octave').value), 0.02);
     });
     $('#oscillator2Detune').addEventListener('change', function (event) {
-        osc2.detune.exponentialRampToValueAtTime(event.target.value, context.currentTime + 0.02);
+        osc2.detune.exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
     });
     $('#oscillator2Octave').addEventListener('change', function (event) {
         osc2.frequency.value = osc1.frequency.value * Math.pow(2, event.target.value);

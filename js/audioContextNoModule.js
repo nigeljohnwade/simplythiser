@@ -12,7 +12,7 @@ window.audioContext = {
         var detune = arguments.length <= 4 || arguments[4] === undefined ? 0 : arguments[4];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _osc = context.createOscillator();
         _osc.type = waveform;
@@ -30,7 +30,7 @@ window.audioContext = {
         var gain = arguments.length <= 5 || arguments[5] === undefined ? 0 : arguments[5];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _filter = context.createBiquadFilter();
         _filter.type = type;
@@ -48,7 +48,7 @@ window.audioContext = {
         var maxDecibels = arguments.length <= 4 || arguments[4] === undefined ? -30 : arguments[4];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _analyser = context.createAnalyser();
         _analyser.fftSize = fftSize;
@@ -63,7 +63,7 @@ window.audioContext = {
         var gain = arguments.length <= 2 || arguments[2] === undefined ? 1 : arguments[2];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _gain = context.createGain();
         _gain.gain.value = gain;
@@ -80,7 +80,7 @@ window.audioContext = {
         var release = arguments.length <= 6 || arguments[6] === undefined ? 0.25 : arguments[6];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _comp = context.createDynamicsCompressor();
         _comp.threshold.value = threshold;
@@ -98,7 +98,7 @@ window.audioContext = {
         var oversample = arguments.length <= 3 || arguments[3] === undefined ? 'none' : arguments[3];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _waveShaper = context.createWaveShaper();
         _waveShaper.curve = curve;
@@ -112,7 +112,7 @@ window.audioContext = {
         var delay = arguments.length <= 2 || arguments[2] === undefined ? 0 : arguments[2];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _delay = context.createDelay();
         _delay.delayTime.value = delay;
@@ -125,7 +125,7 @@ window.audioContext = {
         var pan = arguments.length <= 2 || arguments[2] === undefined ? 0 : arguments[2];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _pan = context.createStereoPanner();
         _pan.pan.value = pan;
@@ -138,7 +138,7 @@ window.audioContext = {
         var buffer = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _convolver = context.createConvolver();
         if (buffer) {
@@ -153,7 +153,7 @@ window.audioContext = {
         var buffer = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _buffer = context.createBufferSource();
         if (buffer) {
@@ -166,7 +166,7 @@ window.audioContext = {
     },
     createUserMediaNode: function createUserMediaNode(context, destination) {
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
         var _source;
@@ -197,7 +197,7 @@ window.audioContext = {
     },
     linearEnvelopeADSR: function linearEnvelopeADSR(context, audioParam, startValue, peakValue, attackTime, decayTime, sustainValue, holdTime, releaseTime) {
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var currentTime = context.currentTime;
         audioParam.cancelScheduledValues(currentTime);
@@ -215,9 +215,9 @@ window.audioContext = {
         ajaxRequest.responseType = 'arraybuffer';
         ajaxRequest.onload = function () {
             var audioData = ajaxRequest.response;
-            context.decodeAudioData(audioData, function (buffer) {
+            ac.decodeAudioData(audioData, function (buffer) {
                 window.concertHallBuffer = buffer;
-                window.soundSource = context.createBufferSource();
+                window.soundSource = ac.createBufferSource();
                 window.soundSource.buffer = window.concertHallBuffer;
                 reference.buffer = buffer;
             }, function (e) {
@@ -233,7 +233,7 @@ window.audioContext = {
         var gain = arguments.length <= 4 || arguments[4] === undefined ? 1 : arguments[4];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _lfo = {};
         _lfo.gain = this.createGainNode(context, destination, gain);
@@ -248,7 +248,7 @@ window.audioContext = {
         var wetSignal = arguments.length <= 4 || arguments[4] === undefined ? 1 : arguments[4];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _echoUnit = {};
         _echoUnit.input = this.createGainNode(context);
@@ -282,7 +282,7 @@ window.audioContext = {
         var wetSignal = arguments.length <= 4 || arguments[4] === undefined ? 1 : arguments[4];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _echoUnit = {};
         _echoUnit.input = this.createGainNode(context);
@@ -328,7 +328,7 @@ window.audioContext = {
         var wetSignal = arguments.length <= 2 || arguments[2] === undefined ? 1 : arguments[2];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _reverb = {};
         _reverb.input = this.createGainNode(context);
@@ -361,7 +361,7 @@ window.audioContext = {
         var wetSignal = arguments.length <= 4 || arguments[4] === undefined ? 1 : arguments[4];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _flangerUnit = {};
         _flangerUnit.input = this.createGainNode(context);
@@ -396,7 +396,7 @@ window.audioContext = {
         var wetSignal = arguments.length <= 4 || arguments[4] === undefined ? 1 : arguments[4];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _flangerUnit = {};
         _flangerUnit.input = this.createGainNode(context);
@@ -446,7 +446,7 @@ window.audioContext = {
         var wetSignal = arguments.length <= 4 || arguments[4] === undefined ? 1 : arguments[4];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _chorusUnit = {};
         _chorusUnit.input = this.createGainNode(context);
@@ -490,7 +490,7 @@ window.audioContext = {
     },
     createCompressorUnit: function createCompressorUnit(context, destination) {
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _compressorUnit = {};
         _compressorUnit.input = this.createGainNode(context);

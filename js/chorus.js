@@ -1,11 +1,11 @@
 requirejs(['audioContext'], function(audioContext){
     window.context = audioContext.init();
-    window.masterVolume = audioContext.createGainNode(context, context.destination, 1);
-    window.panner = audioContext.createStereoPannerNode(context, window.masterVolume, 0);
-    window.analyser = audioContext.createAnalyserNode(context, panner);
-    window.chorusUnit = audioContext.createDualChorusUnit(context, analyser);
+    window.masterVolume = audioContext.createGainNode(ac, ac.destination, 1);
+    window.panner = audioContext.createStereoPannerNode(ac, window.masterVolume, 0);
+    window.analyser = audioContext.createAnalyserNode(ac, panner);
+    window.chorusUnit = audioContext.createDualChorusUnit(ac, analyser);
     window.compressor = audioContext.createDynamicsCompressorNode(
-        context,
+        ac,
         chorusUnit.input,
         document.querySelector('#dynamicsThreshold').value,
         document.querySelector('#dynamicsKnee').value,
@@ -13,8 +13,8 @@ requirejs(['audioContext'], function(audioContext){
         document.querySelector('#dynamicsAttack').value,
         document.querySelector('#dynamicsRelease').value
         );
-    window.gainStage = audioContext.createGainNode(context, compressor, 1);
-    window.input = audioContext.createUserMediaNode(context, gainStage);
+    window.gainStage = audioContext.createGainNode(ac, compressor, 1);
+    window.input = audioContext.createUserMediaNode(ac, gainStage);
     window.bufferLength = analyser.frequencyBinCount;
     window.dataArray = new Uint8Array(bufferLength);
     var canvas = document.querySelector("#oscilliscope canvas");

@@ -1,4 +1,4 @@
-class AudioContextClass {
+class AudioContextHelperClass {
     init() {
         window.AudioContext = window.AudioContext || window.webkitAudioContext;
         return new AudioContext();
@@ -10,7 +10,7 @@ class AudioContextClass {
         var detune = arguments.length <= 4 || arguments[4] === undefined ? 0 : arguments[4];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _osc = context.createOscillator();
         _osc.type = waveform;
@@ -28,7 +28,7 @@ class AudioContextClass {
         var gain = arguments.length <= 5 || arguments[5] === undefined ? 0 : arguments[5];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _filter = context.createBiquadFilter();
         _filter.type = type;
@@ -46,7 +46,7 @@ class AudioContextClass {
         var maxDecibels = arguments.length <= 4 || arguments[4] === undefined ? -30 : arguments[4];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _analyser = context.createAnalyser();
         _analyser.fftSize = fftSize;
@@ -61,7 +61,7 @@ class AudioContextClass {
         var gain = arguments.length <= 2 || arguments[2] === undefined ? 1 : arguments[2];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _gain = context.createGain();
         _gain.gain.value = gain;
@@ -78,7 +78,7 @@ class AudioContextClass {
         var release = arguments.length <= 6 || arguments[6] === undefined ? 0.25 : arguments[6];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _comp = context.createDynamicsCompressor();
         _comp.threshold.value = threshold;
@@ -96,7 +96,7 @@ class AudioContextClass {
         var oversample = arguments.length <= 3 || arguments[3] === undefined ? 'none' : arguments[3];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _waveShaper = context.createWaveShaper();
         _waveShaper.curve = curve;
@@ -110,7 +110,7 @@ class AudioContextClass {
         var delay = arguments.length <= 2 || arguments[2] === undefined ? 0 : arguments[2];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _delay = context.createDelay();
         _delay.delayTime.value = delay;
@@ -123,7 +123,7 @@ class AudioContextClass {
         var pan = arguments.length <= 2 || arguments[2] === undefined ? 0 : arguments[2];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _pan = context.createStereoPanner();
         _pan.pan.value = pan;
@@ -136,7 +136,7 @@ class AudioContextClass {
         var buffer = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _convolver = context.createConvolver();
         if (buffer) {
@@ -151,7 +151,7 @@ class AudioContextClass {
         var buffer = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _buffer = context.createBufferSource();
         if (buffer) {
@@ -164,7 +164,7 @@ class AudioContextClass {
     }
     createUserMediaNode(context, destination) {
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
         var _source;
@@ -195,7 +195,7 @@ class AudioContextClass {
     }
     linearEnvelopeADSR(context, audioParam, startValue, peakValue, attackTime, decayTime, sustainValue, holdTime, releaseTime) {
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var currentTime = context.currentTime;
         audioParam.cancelScheduledValues(currentTime);
@@ -213,9 +213,9 @@ class AudioContextClass {
         ajaxRequest.responseType = 'arraybuffer';
         ajaxRequest.onload = function () {
             var audioData = ajaxRequest.response;
-            context.decodeAudioData(audioData, function (buffer) {
+            ac.decodeAudioData(audioData, function (buffer) {
                 window.concertHallBuffer = buffer;
-                window.soundSource = context.createBufferSource();
+                window.soundSource = ac.createBufferSource();
                 window.soundSource.buffer = window.concertHallBuffer;
                 reference.buffer = buffer;
             }, function (e) {
@@ -231,7 +231,7 @@ class AudioContextClass {
         var gain = arguments.length <= 4 || arguments[4] === undefined ? 1 : arguments[4];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _lfo = {};
         _lfo.gain = this.createGainNode(context, destination, gain);
@@ -246,7 +246,7 @@ class AudioContextClass {
         var wetSignal = arguments.length <= 4 || arguments[4] === undefined ? 1 : arguments[4];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _echoUnit = {};
         _echoUnit.input = this.createGainNode(context);
@@ -280,7 +280,7 @@ class AudioContextClass {
         var wetSignal = arguments.length <= 4 || arguments[4] === undefined ? 1 : arguments[4];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _echoUnit = {};
         _echoUnit.input = this.createGainNode(context);
@@ -326,7 +326,7 @@ class AudioContextClass {
         var wetSignal = arguments.length <= 2 || arguments[2] === undefined ? 1 : arguments[2];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _reverb = {};
         _reverb.input = this.createGainNode(context);
@@ -359,7 +359,7 @@ class AudioContextClass {
         var wetSignal = arguments.length <= 4 || arguments[4] === undefined ? 1 : arguments[4];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _flangerUnit = {};
         _flangerUnit.input = this.createGainNode(context);
@@ -394,7 +394,7 @@ class AudioContextClass {
         var wetSignal = arguments.length <= 4 || arguments[4] === undefined ? 1 : arguments[4];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _flangerUnit = {};
         _flangerUnit.input = this.createGainNode(context);
@@ -444,7 +444,7 @@ class AudioContextClass {
         var wetSignal = arguments.length <= 4 || arguments[4] === undefined ? 1 : arguments[4];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _chorusUnit = {};
         _chorusUnit.input = this.createGainNode(context);
@@ -488,7 +488,7 @@ class AudioContextClass {
     }
     createCompressorUnit(context, destination) {
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         var _compressorUnit = {};
         _compressorUnit.input = this.createGainNode(context);
@@ -512,5 +512,5 @@ class AudioContextClass {
     }
 };
 
-window.ac = new AudioContextClass();
+window.ac = new AudioContextHelperClass();
 window.ac.init();

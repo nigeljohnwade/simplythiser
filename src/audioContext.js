@@ -6,7 +6,7 @@ define({
     //Primitive Nodes
     createOscillatorNode: function(context, destination, waveform = 'sine', frequency = 440, detune = 0){
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         const _osc = context.createOscillator()
         _osc.type = waveform;
@@ -19,7 +19,7 @@ define({
     },
     createBiquadFilterNode: function(context, destination, type = 'lowpass', frequency = 350, q = 1, gain = 0){
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         const _filter = context.createBiquadFilter();
         _filter.type = type;
@@ -33,7 +33,7 @@ define({
     },
     createAnalyserNode: function(context, destination, fftSize = 2048, minDecibels = -100, maxDecibels = -30){
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         const _analyser = context.createAnalyser();
         _analyser.fftSize = fftSize;
@@ -46,7 +46,7 @@ define({
     },
     createGainNode: function(context, destination, gain = 1){
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         const _gain = context.createGain();
         _gain.gain.value = gain;
@@ -57,7 +57,7 @@ define({
     },
     createDynamicsCompressorNode: function(context, destination, threshold = -24, knee = 30, ratio =12, attack = 0.003, release = 0.25){
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         const _comp = context.createDynamicsCompressor();
         _comp.threshold.value = threshold;
@@ -72,7 +72,7 @@ define({
     },
     createWaveShaperNode: function(context, destination, curve = null, oversample = 'none'){
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }        
         const _waveShaper = context.createWaveShaper();
         _waveShaper.curve = curve;
@@ -84,7 +84,7 @@ define({
     },
     createDelayNode: function(context, destination, delay = 0){
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }           
         const _delay = context.createDelay();
         _delay.delayTime.value = delay;
@@ -95,7 +95,7 @@ define({
     },
     createStereoPannerNode: function(context, destination, pan = 0){
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }          
         const _pan = context.createStereoPanner();
         _pan.pan.value = pan;
@@ -106,7 +106,7 @@ define({
     },
     createConvolverNode: function(context, destination, buffer = null){
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }          
         const _convolver = context.createConvolver();
         if (buffer) {
@@ -119,7 +119,7 @@ define({
     },
     createAudioBufferSourceNode: function(context, destination, buffer = null){
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }  
         const _buffer = context.createBufferSource();
         if (buffer) {
@@ -132,7 +132,7 @@ define({
     },
     createUserMediaNode: function(context, destination){
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }  
         navigator.getUserMedia = (navigator.getUserMedia ||
             navigator.webkitGetUserMedia ||
@@ -170,7 +170,7 @@ define({
     },
     linearEnvelopeADSR: function(context, audioParam, startValue, peakValue, attackTime, decayTime, sustainValue, holdTime, releaseTime){
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }          
         const currentTime = context.currentTime;
         audioParam.cancelScheduledValues(currentTime);
@@ -188,9 +188,9 @@ define({
         ajaxRequest.responseType = 'arraybuffer';
         ajaxRequest.onload = function() {
           var audioData = ajaxRequest.response;
-          context.decodeAudioData(audioData, function(buffer) {
+          ac.decodeAudioData(audioData, function(buffer) {
               window.concertHallBuffer = buffer;
-              window.soundSource = context.createBufferSource();
+              window.soundSource = ac.createBufferSource();
               window.soundSource.buffer = window.concertHallBuffer;
               reference.buffer = buffer;
             }, function(e){"Error with decoding audio data" + e.err});
@@ -200,7 +200,7 @@ define({
     //Compound Nodes
     createLfoNode: function(context, destination, waveform = 'sine', frequency = 0.1, gain = 1){
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }          
         const _lfo = {};
         _lfo.gain = this.createGainNode(context, destination, gain);
@@ -211,7 +211,7 @@ define({
     //Effects Units
     createEchoUnit: function(context, destination, delay = 1, feedback = 0.6, wetSignal = 1){
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }          
         const _echoUnit = {};
         _echoUnit.input = this.createGainNode(context);
@@ -239,7 +239,7 @@ define({
     },
     createDualEchoUnit: function(context, destination, delay = 0.4, feedback = 0.6, wetSignal = 1){
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }          
         const _echoUnit = {};
         _echoUnit.input = this.createGainNode(context);
@@ -281,7 +281,7 @@ define({
     },
     createReverbUnit: function(context, destination, wetSignal = 1){
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }          
         const _reverb = {};
         _reverb.input = this.createGainNode(context);
@@ -308,7 +308,7 @@ define({
     },
     createFlangerUnit: function(context, destination, delay = 0.013, feedback = 0.9, wetSignal = 1){
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }          
         const _flangerUnit = {};
         _flangerUnit.input = this.createGainNode(context);
@@ -337,7 +337,7 @@ define({
     },
     createDualFlangerUnit: function(context, destination, delay = 0.013, feedback = 0.9, wetSignal = 1){
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }          
         const _flangerUnit = {};
         _flangerUnit.input = this.createGainNode(context);
@@ -381,7 +381,7 @@ define({
     },
     createDualChorusUnit: function(context, destination, delay = 0.13, feedback = 0.2, wetSignal = 1){
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }  
         const _chorusUnit = {};
         _chorusUnit.input = this.createGainNode(context);
@@ -423,7 +423,7 @@ define({
     },
     createCompressorUnit: function(context, destination){
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }          
         const _compressorUnit = {};
         _compressorUnit.input = this.createGainNode(context);

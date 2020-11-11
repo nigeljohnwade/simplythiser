@@ -7,14 +7,14 @@ define({
     },
     //Primitive Nodes
     createOscillatorNode: function createOscillatorNode(context, destination) {
-        var waveform = arguments.length <= 2 || arguments[2] === undefined ? 'sine' : arguments[2];
-        var frequency = arguments.length <= 3 || arguments[3] === undefined ? 440 : arguments[3];
-        var detune = arguments.length <= 4 || arguments[4] === undefined ? 0 : arguments[4];
+        const waveform = arguments.length <= 2 || arguments[2] === undefined ? 'sine' : arguments[2];
+        const frequency = arguments.length <= 3 || arguments[3] === undefined ? 440 : arguments[3];
+        const detune = arguments.length <= 4 || arguments[4] === undefined ? 0 : arguments[4];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
-        var _osc = context.createOscillator();
+        const _osc = context.createOscillator();
         _osc.type = waveform;
         _osc.frequency.value = frequency;
         _osc.detune.value = detune;
@@ -24,15 +24,15 @@ define({
         return _osc;
     },
     createBiquadFilterNode: function createBiquadFilterNode(context, destination) {
-        var type = arguments.length <= 2 || arguments[2] === undefined ? 'lowpass' : arguments[2];
-        var frequency = arguments.length <= 3 || arguments[3] === undefined ? 350 : arguments[3];
-        var q = arguments.length <= 4 || arguments[4] === undefined ? 1 : arguments[4];
-        var gain = arguments.length <= 5 || arguments[5] === undefined ? 0 : arguments[5];
+        const type = arguments.length <= 2 || arguments[2] === undefined ? 'lowpass' : arguments[2];
+        const frequency = arguments.length <= 3 || arguments[3] === undefined ? 350 : arguments[3];
+        const q = arguments.length <= 4 || arguments[4] === undefined ? 1 : arguments[4];
+        const gain = arguments.length <= 5 || arguments[5] === undefined ? 0 : arguments[5];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
-        var _filter = context.createBiquadFilter();
+        const _filter = context.createBiquadFilter();
         _filter.type = type;
         _filter.frequency.value = frequency;
         _filter.Q.value = q;
@@ -43,14 +43,14 @@ define({
         return _filter;
     },
     createAnalyserNode: function createAnalyserNode(context, destination) {
-        var fftSize = arguments.length <= 2 || arguments[2] === undefined ? 2048 : arguments[2];
-        var minDecibels = arguments.length <= 3 || arguments[3] === undefined ? -100 : arguments[3];
-        var maxDecibels = arguments.length <= 4 || arguments[4] === undefined ? -30 : arguments[4];
+        const fftSize = arguments.length <= 2 || arguments[2] === undefined ? 2048 : arguments[2];
+        const minDecibels = arguments.length <= 3 || arguments[3] === undefined ? -100 : arguments[3];
+        const maxDecibels = arguments.length <= 4 || arguments[4] === undefined ? -30 : arguments[4];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
-        var _analyser = context.createAnalyser();
+        const _analyser = context.createAnalyser();
         _analyser.fftSize = fftSize;
         _analyser.minDecibels = minDecibels;
         _analyser.maxDecibels = maxDecibels;
@@ -60,12 +60,12 @@ define({
         return _analyser;
     },
     createGainNode: function createGainNode(context, destination) {
-        var gain = arguments.length <= 2 || arguments[2] === undefined ? 1 : arguments[2];
+        const gain = arguments.length <= 2 || arguments[2] === undefined ? 1 : arguments[2];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
-        var _gain = context.createGain();
+        const _gain = context.createGain();
         _gain.gain.value = gain;
         if (destination) {
             _gain.connect(destination);
@@ -73,16 +73,16 @@ define({
         return _gain;
     },
     createDynamicsCompressorNode: function createDynamicsCompressorNode(context, destination) {
-        var threshold = arguments.length <= 2 || arguments[2] === undefined ? -24 : arguments[2];
-        var knee = arguments.length <= 3 || arguments[3] === undefined ? 30 : arguments[3];
-        var ratio = arguments.length <= 4 || arguments[4] === undefined ? 12 : arguments[4];
-        var attack = arguments.length <= 5 || arguments[5] === undefined ? 0.003 : arguments[5];
-        var release = arguments.length <= 6 || arguments[6] === undefined ? 0.25 : arguments[6];
+        const threshold = arguments.length <= 2 || arguments[2] === undefined ? -24 : arguments[2];
+        const knee = arguments.length <= 3 || arguments[3] === undefined ? 30 : arguments[3];
+        const ratio = arguments.length <= 4 || arguments[4] === undefined ? 12 : arguments[4];
+        const attack = arguments.length <= 5 || arguments[5] === undefined ? 0.003 : arguments[5];
+        const release = arguments.length <= 6 || arguments[6] === undefined ? 0.25 : arguments[6];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
-        var _comp = context.createDynamicsCompressor();
+        const _comp = context.createDynamicsCompressor();
         _comp.threshold.value = threshold;
         _comp.knee.value = knee;
         _comp.ratio.value = ratio;
@@ -94,13 +94,13 @@ define({
         return _comp;
     },
     createWaveShaperNode: function createWaveShaperNode(context, destination) {
-        var curve = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
-        var oversample = arguments.length <= 3 || arguments[3] === undefined ? 'none' : arguments[3];
+        const curve = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
+        const oversample = arguments.length <= 3 || arguments[3] === undefined ? 'none' : arguments[3];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
-        var _waveShaper = context.createWaveShaper();
+        const _waveShaper = context.createWaveShaper();
         _waveShaper.curve = curve;
         _waveShaper.oversample = oversample;
         if (destination) {
@@ -109,12 +109,12 @@ define({
         return _waveShaper;
     },
     createDelayNode: function createDelayNode(context, destination) {
-        var delay = arguments.length <= 2 || arguments[2] === undefined ? 0 : arguments[2];
+        const delay = arguments.length <= 2 || arguments[2] === undefined ? 0 : arguments[2];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
-        var _delay = context.createDelay();
+        const _delay = context.createDelay();
         _delay.delayTime.value = delay;
         if (destination) {
             _delay.connect(destination);
@@ -122,12 +122,12 @@ define({
         return _delay;
     },
     createStereoPannerNode: function createStereoPannerNode(context, destination) {
-        var pan = arguments.length <= 2 || arguments[2] === undefined ? 0 : arguments[2];
+        const pan = arguments.length <= 2 || arguments[2] === undefined ? 0 : arguments[2];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
-        var _pan = context.createStereoPanner();
+        const _pan = context.createStereoPanner();
         _pan.pan.value = pan;
         if (destination) {
             _pan.connect(destination);
@@ -135,12 +135,12 @@ define({
         return _pan;
     },
     createConvolverNode: function createConvolverNode(context, destination) {
-        var buffer = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
+        const buffer = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
-        var _convolver = context.createConvolver();
+        const _convolver = context.createConvolver();
         if (buffer) {
             _convolver.buffer = buffer;
         }
@@ -150,12 +150,12 @@ define({
         return _convolver;
     },
     createAudioBufferSourceNode: function createAudioBufferSourceNode(context, destination) {
-        var buffer = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
+        const buffer = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
-        var _buffer = context.createBufferSource();
+        const _buffer = context.createBufferSource();
         if (buffer) {
             _buffer.buffer = buffer;
         }
@@ -166,10 +166,10 @@ define({
     },
     createUserMediaNode: function createUserMediaNode(context, destination) {
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
         navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia || navigator.mozGetUserMedia || navigator.msGetUserMedia;
-        var _source;
+        let _source;
         if (navigator.getUserMedia) {
             navigator.getUserMedia({ audio: true }, function (stream) {
                 _source = context.createMediaStreamSource(stream);
@@ -183,23 +183,23 @@ define({
     },
     //Utilities
     makeDistortionCurve: function makeDistortionCurve(amount) {
-        var k = typeof amount === 'number' ? amount : 50,
+        const k = typeof amount === 'number' ? amount : 50,
             n_samples = 44100,
             curve = new Float32Array(n_samples),
             deg = Math.PI / 180,
             i = 0,
             x = void 0;
         for (; i < n_samples; ++i) {
-            x = i * 2 / n_samples - 1;
+            const x = i * 2 / n_samples - 1;
             curve[i] = (3 + k) * x * 20 * deg / (Math.PI + k * Math.abs(x));
         }
         return curve;
     },
     linearEnvelopeADSR: function linearEnvelopeADSR(context, audioParam, startValue, peakValue, attackTime, decayTime, sustainValue, holdTime, releaseTime) {
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
-        var currentTime = context.currentTime;
+        const currentTime = context.currentTime;
         audioParam.cancelScheduledValues(currentTime);
         audioParam.setValueAtTime(startValue, currentTime);
         audioParam.linearRampToValueAtTime(peakValue, currentTime + attackTime);
@@ -210,14 +210,14 @@ define({
         if (!reference) {
             throw 'No reference defined';
         }
-        var ajaxRequest = new XMLHttpRequest();
+        const ajaxRequest = new XMLHttpRequest();
         ajaxRequest.open('GET', url, true);
         ajaxRequest.responseType = 'arraybuffer';
         ajaxRequest.onload = function () {
-            var audioData = ajaxRequest.response;
-            context.decodeAudioData(audioData, function (buffer) {
+            const audioData = ajaxRequest.response;
+            ac.decodeAudioData(audioData, function (buffer) {
                 window.concertHallBuffer = buffer;
-                window.soundSource = context.createBufferSource();
+                window.soundSource = ac.createBufferSource();
                 window.soundSource.buffer = window.concertHallBuffer;
                 reference.buffer = buffer;
             }, function (e) {
@@ -228,14 +228,14 @@ define({
     },
     //Compound Nodes
     createLfoNode: function createLfoNode(context, destination) {
-        var waveform = arguments.length <= 2 || arguments[2] === undefined ? 'sine' : arguments[2];
-        var frequency = arguments.length <= 3 || arguments[3] === undefined ? 0.1 : arguments[3];
-        var gain = arguments.length <= 4 || arguments[4] === undefined ? 1 : arguments[4];
+        const waveform = arguments.length <= 2 || arguments[2] === undefined ? 'sine' : arguments[2];
+        const frequency = arguments.length <= 3 || arguments[3] === undefined ? 0.1 : arguments[3];
+        const gain = arguments.length <= 4 || arguments[4] === undefined ? 1 : arguments[4];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
-        var _lfo = {};
+        const _lfo = {};
         _lfo.gain = this.createGainNode(context, destination, gain);
         _lfo.oscillator = this.createOscillatorNode(context, _lfo.gain, waveform, frequency, 0);
         _lfo.oscillator.start(0);
@@ -243,14 +243,14 @@ define({
     },
     //Effects Units
     createEchoUnit: function createEchoUnit(context, destination) {
-        var delay = arguments.length <= 2 || arguments[2] === undefined ? 1 : arguments[2];
-        var feedback = arguments.length <= 3 || arguments[3] === undefined ? 0.6 : arguments[3];
-        var wetSignal = arguments.length <= 4 || arguments[4] === undefined ? 1 : arguments[4];
+        const delay = arguments.length <= 2 || arguments[2] === undefined ? 1 : arguments[2];
+        const feedback = arguments.length <= 3 || arguments[3] === undefined ? 0.6 : arguments[3];
+        const wetSignal = arguments.length <= 4 || arguments[4] === undefined ? 1 : arguments[4];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
-        var _echoUnit = {};
+        const _echoUnit = {};
         _echoUnit.input = this.createGainNode(context);
         _echoUnit.wetChannel = this.createGainNode(context);
         _echoUnit.dryChannel = this.createGainNode(context, null, wetSignal);
@@ -266,7 +266,7 @@ define({
         _echoUnit.delay.connect(_echoUnit.output);
         _echoUnit.output.connect(destination);
         _echoUnit.bypass = function () {
-            var state = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
+            const state = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
 
             if (state) {
                 this.wetChannel.disconnect(this.delay);
@@ -277,14 +277,14 @@ define({
         return _echoUnit;
     },
     createDualEchoUnit: function createDualEchoUnit(context, destination) {
-        var delay = arguments.length <= 2 || arguments[2] === undefined ? 0.4 : arguments[2];
-        var feedback = arguments.length <= 3 || arguments[3] === undefined ? 0.6 : arguments[3];
-        var wetSignal = arguments.length <= 4 || arguments[4] === undefined ? 1 : arguments[4];
+        const delay = arguments.length <= 2 || arguments[2] === undefined ? 0.4 : arguments[2];
+        const feedback = arguments.length <= 3 || arguments[3] === undefined ? 0.6 : arguments[3];
+        const wetSignal = arguments.length <= 4 || arguments[4] === undefined ? 1 : arguments[4];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
-        var _echoUnit = {};
+        const _echoUnit = {};
         _echoUnit.input = this.createGainNode(context);
         _echoUnit.wetChannelLeft = this.createGainNode(context, null, wetSignal);
         _echoUnit.wetChannelRight = this.createGainNode(context, null, wetSignal);
@@ -312,7 +312,7 @@ define({
         _echoUnit.panLeft.connect(_echoUnit.output);
         _echoUnit.output.connect(destination);
         _echoUnit.bypass = function () {
-            var state = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
+            const state = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
 
             if (state) {
                 this.wetChannelLeft.disconnect(this.delayLeft);
@@ -325,12 +325,12 @@ define({
         return _echoUnit;
     },
     createReverbUnit: function createReverbUnit(context, destination) {
-        var wetSignal = arguments.length <= 2 || arguments[2] === undefined ? 1 : arguments[2];
+        const wetSignal = arguments.length <= 2 || arguments[2] === undefined ? 1 : arguments[2];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
-        var _reverb = {};
+        const _reverb = {};
         _reverb.input = this.createGainNode(context);
         _reverb.wetChannel = this.createGainNode(context, null, wetSignal);
         _reverb.dryChannel = this.createGainNode(context);
@@ -345,7 +345,7 @@ define({
         _reverb.wetFilter.connect(_reverb.output);
         _reverb.output.connect(destination);
         _reverb.bypass = function () {
-            var state = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
+            const state = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
 
             if (state) {
                 this.wetChannel.disconnect(_reverb.convolver);
@@ -356,14 +356,14 @@ define({
         return _reverb;
     },
     createFlangerUnit: function createFlangerUnit(context, destination) {
-        var delay = arguments.length <= 2 || arguments[2] === undefined ? 0.013 : arguments[2];
-        var feedback = arguments.length <= 3 || arguments[3] === undefined ? 0.9 : arguments[3];
-        var wetSignal = arguments.length <= 4 || arguments[4] === undefined ? 1 : arguments[4];
+        const delay = arguments.length <= 2 || arguments[2] === undefined ? 0.013 : arguments[2];
+        const feedback = arguments.length <= 3 || arguments[3] === undefined ? 0.9 : arguments[3];
+        const wetSignal = arguments.length <= 4 || arguments[4] === undefined ? 1 : arguments[4];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
-        var _flangerUnit = {};
+        const _flangerUnit = {};
         _flangerUnit.input = this.createGainNode(context);
         _flangerUnit.wetChannel = this.createGainNode(context);
         _flangerUnit.dryChannel = this.createGainNode(context, null, wetSignal);
@@ -380,7 +380,7 @@ define({
         _flangerUnit.delay.connect(_flangerUnit.output);
         _flangerUnit.output.connect(destination);
         _flangerUnit.bypass = function () {
-            var state = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
+            const state = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
 
             if (state) {
                 this.wetChannel.disconnect(this.delay);
@@ -391,14 +391,14 @@ define({
         return _flangerUnit;
     },
     createDualFlangerUnit: function createDualFlangerUnit(context, destination) {
-        var delay = arguments.length <= 2 || arguments[2] === undefined ? 0.013 : arguments[2];
-        var feedback = arguments.length <= 3 || arguments[3] === undefined ? 0.9 : arguments[3];
-        var wetSignal = arguments.length <= 4 || arguments[4] === undefined ? 1 : arguments[4];
+        const delay = arguments.length <= 2 || arguments[2] === undefined ? 0.013 : arguments[2];
+        const feedback = arguments.length <= 3 || arguments[3] === undefined ? 0.9 : arguments[3];
+        const wetSignal = arguments.length <= 4 || arguments[4] === undefined ? 1 : arguments[4];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
-        var _flangerUnit = {};
+        const _flangerUnit = {};
         _flangerUnit.input = this.createGainNode(context);
         _flangerUnit.wetChannelLeft = this.createGainNode(context);
         _flangerUnit.wetChannelRight = this.createGainNode(context);
@@ -428,7 +428,7 @@ define({
         _flangerUnit.wetFilter.connect(_flangerUnit.output);
         _flangerUnit.output.connect(destination);
         _flangerUnit.bypass = function () {
-            var state = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
+            const state = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
 
             if (state) {
                 this.wetChannelLeft.disconnect(this.delayLeft);
@@ -441,14 +441,14 @@ define({
         return _flangerUnit;
     },
     createDualChorusUnit: function createDualChorusUnit(context, destination) {
-        var delay = arguments.length <= 2 || arguments[2] === undefined ? 0.13 : arguments[2];
-        var feedback = arguments.length <= 3 || arguments[3] === undefined ? 0.2 : arguments[3];
-        var wetSignal = arguments.length <= 4 || arguments[4] === undefined ? 1 : arguments[4];
+        const delay = arguments.length <= 2 || arguments[2] === undefined ? 0.13 : arguments[2];
+        const feedback = arguments.length <= 3 || arguments[3] === undefined ? 0.2 : arguments[3];
+        const wetSignal = arguments.length <= 4 || arguments[4] === undefined ? 1 : arguments[4];
 
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
-        var _chorusUnit = {};
+        const _chorusUnit = {};
         _chorusUnit.input = this.createGainNode(context);
         _chorusUnit.wetChannelLeft = this.createGainNode(context);
         _chorusUnit.wetChannelRight = this.createGainNode(context);
@@ -476,7 +476,7 @@ define({
         _chorusUnit.delayRight.connect(_chorusUnit.output);
         _chorusUnit.output.connect(destination);
         _chorusUnit.bypass = function () {
-            var state = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
+            const state = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
 
             if (state) {
                 this.wetChannelLeft.disconnect(this.delayLeft);
@@ -490,9 +490,9 @@ define({
     },
     createCompressorUnit: function createCompressorUnit(context, destination) {
         if (!context) {
-            throw 'No context defined';
+            throw 'No ac defined';
         }
-        var _compressorUnit = {};
+        const _compressorUnit = {};
         _compressorUnit.input = this.createGainNode(context);
         _compressorUnit.compressor = this.createDynamicsCompressorNode(context);
         _compressorUnit.output = this.createGainNode(context);
@@ -500,7 +500,7 @@ define({
         _compressorUnit.compressor.connect(_compressorUnit.output);
         _compressorUnit.output.connect(destination);
         _compressorUnit.bypass = function () {
-            var state = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
+            const state = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
 
             if (state) {
                 this.input.disconnect(this.compressor);

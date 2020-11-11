@@ -1,17 +1,20 @@
-function simplythiser(audioContext){
+// Relies on my own audio context helper class
+// and its interface
+function simplythiser(audioContextHelper){
+    const ach = audioContextHelper;
     const g$ = window;
     const $ = document.querySelector.bind(document);
-    g$.context = audioContext.init();
-    g$.masterVolume = audioContext.createGainNode(context, context.destination, 1);
-    g$.convolver = audioContext.createConvolverNode(context, masterVolume, null);
-    audioContext.getAudioByXhr('audio/In The Silo Revised.wav', g$.convolver);
-    g$.panner = audioContext.createStereoPannerNode(context, convolver, 0);
-    g$.analyser = audioContext.createAnalyserNode(context, panner);
-    g$.delay = audioContext.createDelayNode(context, analyser, 0.5);
-    g$.delayFeedback = audioContext.createGainNode(context, delay, 0.8);
+    g$.ac = ach.init();
+    g$.masterVolume = ach.createGainNode(ac, ac.destination, 1);
+    g$.convolver = ach.createConvolverNode(ac, masterVolume, null);
+    ach.getAudioByXhr('audio/In The Silo Revised.wav', g$.convolver);
+    g$.panner = ach.createStereoPannerNode(ac, convolver, 0);
+    g$.analyser = ach.createAnalyserNode(ac, panner);
+    g$.delay = ach.createDelayNode(ac, analyser, 0.5);
+    g$.delayFeedback = ach.createGainNode(ac, delay, 0.8);
     delay.connect(delayFeedback);
-    g$.compressor = audioContext.createDynamicsCompressorNode(
-        context,
+    g$.compressor = ach.createDynamicsCompressorNode(
+        ac,
         delay,
         $('#dynamicsThreshold').value,
         $('#dynamicsKnee').value,
@@ -20,36 +23,36 @@ function simplythiser(audioContext){
         $('#dynamicsRelease').value
         );
     compressor.connect(analyser);
-    g$.gainStage = audioContext.createGainNode(context, compressor, 0);
-    g$.distortion = audioContext.createWaveShaperNode(context, gainStage, audioContext.makeDistortionCurve(400), 'none' );
+    g$.gainStage = ach.createGainNode(ac, compressor, 0);
+    g$.distortion = ach.createWaveShaperNode(ac, gainStage, ach.makeDistortionCurve(400), 'none' );
     distortion.setCurve = function(amount){
-        distortion.curve = audioContext.makeDistortionCurve(amount);
+        distortion.curve = ach.makeDistortionCurve(amount);
     }
-    g$.filter1 = audioContext.createBiquadFilterNode(
-        context,
+    g$.filter1 = ach.createBiquadFilterNode(
+        ac,
         distortion,
         $('#filter1Type').value,
         Math.pow(2, $('#filter1frequency').value) * 55,
         $('#filter1Q').value,
         $('#filter1Gain').value
         );
-    g$.osc1 = audioContext.createOscillatorNode(
-        context,
+    g$.osc1 = ach.createOscillatorNode(
+        ac,
         filter1,
         $('#oscillator1Type').value,
         Math.pow(2, $('#oscillator1Octave').value) * 55,
         0
         );
-    g$.osc2 = audioContext.createOscillatorNode(
-        context,
+    g$.osc2 = ach.createOscillatorNode(
+        ac,
         filter1,
         $('#oscillator2Type').value,
         (Math.pow(2, $('#oscillator1Octave').value) * 55) * Math.pow(2, $('#oscillator2Octave').value),
         $('#oscillator2Detune').value
         );
-    g$.lfo1 = audioContext.createLfoNode(context, filter1.frequency, 'sine', 0.1, 100);
+    g$.lfo1 = ach.createLfoNode(ac, filter1.frequency, 'sine', 0.1, 100);
     g$.envelope = function(context, audioParam, startValue, peakValue, attackTime, decayTime, sustainValue, holdTime, releaseTime){
-        audioContext.linearEnvelopeADSR(context, audioParam, startValue, peakValue, attackTime, decayTime, sustainValue, holdTime, releaseTime);
+        ach.linearEnvelopeADSR(context, audioParam, startValue, peakValue, attackTime, decayTime, sustainValue, holdTime, releaseTime);
     };
     g$.runRandomValueSequencer = function(context, interval, objects){
         const now = context.currentTime;

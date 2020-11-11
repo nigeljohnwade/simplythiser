@@ -48,19 +48,19 @@ requirejs(['audioContext', 'redux.min'], function(audioContext, redux){
     )
     //debugger;
     window.context = audioContext.init();
-    window.masterVolume = audioContext.createGainNode(context, context.destination, 1);
-    window.panner = audioContext.createStereoPannerNode(context, masterVolume, 0);
-    window.analyser = audioContext.createAnalyserNode(context, panner);
-    window.convolver = audioContext.createConvolverNode(context, analyser, null);
+    window.masterVolume = audioContext.createGainNode(ac, ac.destination, 1);
+    window.panner = audioContext.createStereoPannerNode(ac, masterVolume, 0);
+    window.analyser = audioContext.createAnalyserNode(ac, panner);
+    window.convolver = audioContext.createConvolverNode(ac, analyser, null);
     audioContext.getAudioByXhr('../audio/In The Silo Revised.wav', window.convolver);
     //audioContext.getAudioByXhr('../audio/Inchdown.wav', window.convolver);
     //audioContext.getAudioByXhr('../audio/BathHouse.wav', window.convolver);
     //audioContext.getAudioByXhr('../audio/MesaBoogieStudio22.wav', window.convolver);
     //audioContext.getAudioByXhr('../audio/French 18th Century Salon.wav', window.convolver);
-    window.dualEchoUnit = audioContext.createDualEchoUnit(context, convolver, 0.5, 0.6, 1);
-    window.compressor = audioContext.createCompressorUnit(context, dualEchoUnit.input);
+    window.dualEchoUnit = audioContext.createDualEchoUnit(ac, convolver, 0.5, 0.6, 1);
+    window.compressor = audioContext.createCompressorUnit(ac, dualEchoUnit.input);
     //window.compressor = audioContext.createDynamicsCompressorNode(
-    //    context,
+    //    ac,
     //    dualEchoUnit.input  ,
     //    document.querySelector('#dynamicsThreshold').value,
     //    document.querySelector('#dynamicsKnee').value,
@@ -69,13 +69,13 @@ requirejs(['audioContext', 'redux.min'], function(audioContext, redux){
     //    document.querySelector('#dynamicsRelease').value
     //    );
     compressor.output.connect(analyser);
-    window.gainStage = audioContext.createGainNode(context, compressor.input, 0);
-    window.distortion = audioContext.createWaveShaperNode(context, gainStage, audioContext.makeDistortionCurve(400), 'none' );
+    window.gainStage = audioContext.createGainNode(ac, compressor.input, 0);
+    window.distortion = audioContext.createWaveShaperNode(ac, gainStage, audioContext.makeDistortionCurve(400), 'none' );
     distortion.setCurve = function(amount){
         distortion.curve = audioContext.makeDistortionCurve(amount);
     }
     window.filter1 = audioContext.createBiquadFilterNode(
-        context,
+        ac,
         distortion,
         document.querySelector('#filter1Type').value,
         Math.pow(2, document.querySelector('#filter1frequency').value) * 55,
@@ -83,14 +83,14 @@ requirejs(['audioContext', 'redux.min'], function(audioContext, redux){
         document.querySelector('#filter1Gain').value
         );
     window.osc1 = audioContext.createOscillatorNode(
-        context,
+        ac,
         filter1,
         document.querySelector('#oscillator1Type').value,
         Math.pow(2, document.querySelector('#oscillator1Octave').value) * 55,
         0
         );
     window.osc2 = audioContext.createOscillatorNode(
-        context,
+        ac,
         filter1,
         document.querySelector('#oscillator2Type').value,
         (Math.pow(2, document.querySelector('#oscillator1Octave').value) * 55) * Math.pow(2, document.querySelector('#oscillator2Octave').value),
@@ -98,7 +98,7 @@ requirejs(['audioContext', 'redux.min'], function(audioContext, redux){
         );
     osc1.start(0);
     osc2.start(0);
-    window.lfo1 = audioContext.createLfoNode(context, filter1.frequency, 'sine', 0.1, 100);
+    window.lfo1 = audioContext.createLfoNode(ac, filter1.frequency, 'sine', 0.1, 100);
     window.envelope = function(context, audioParam, startValue, peakValue, attackTime, decayTime, sustainValue, holdTime, releaseTime){
         audioContext.linearEnvelopeADSR(context, audioParam, startValue, peakValue, attackTime, decayTime, sustainValue, holdTime, releaseTime);
     };

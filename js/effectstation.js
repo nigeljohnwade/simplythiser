@@ -1,27 +1,27 @@
 requirejs(['audioContext'], function(audioContext){
     window.context = audioContext.init();
-    window.masterVolume = audioContext.createGainNode(context, context.destination, 1);
-    window.reverbUnit = audioContext.createReverbUnit(context, masterVolume);
+    window.masterVolume = audioContext.createGainNode(ac, ac.destination, 1);
+    window.reverbUnit = audioContext.createReverbUnit(ac, masterVolume);
     audioContext.getAudioByXhr('../audio/In The Silo Revised.wav', window.reverbUnit.convolver);
-    window.panner = audioContext.createStereoPannerNode(context, window.reverbUnit.input, 0);
-    window.analyser = audioContext.createAnalyserNode(context, panner);
-    window.echoUnit = audioContext.createDualEchoUnit(context, analyser);
-    window.compressor = audioContext.createCompressorUnit(context, echoUnit.input);
+    window.panner = audioContext.createStereoPannerNode(ac, window.reverbUnit.input, 0);
+    window.analyser = audioContext.createAnalyserNode(ac, panner);
+    window.echoUnit = audioContext.createDualEchoUnit(ac, analyser);
+    window.compressor = audioContext.createCompressorUnit(ac, echoUnit.input);
     window.filter1 = audioContext.createBiquadFilterNode(
-        context,
+        ac,
         compressor.input,
         document.querySelector('#filter1Type').value,
         Math.pow(2, document.querySelector('#filter1frequency').value) * 55,
         document.querySelector('#filter1Q').value,
         document.querySelector('#filter1Gain').value
         );
-    window.lfo1 = audioContext.createLfoNode(context, filter1.frequency, 'sine', 0.1, 100);
-    window.gainStage = audioContext.createGainNode(context, filter1, 1);
-    window.distortion = audioContext.createWaveShaperNode(context, gainStage, audioContext.makeDistortionCurve(400), 'none' );
+    window.lfo1 = audioContext.createLfoNode(ac, filter1.frequency, 'sine', 0.1, 100);
+    window.gainStage = audioContext.createGainNode(ac, filter1, 1);
+    window.distortion = audioContext.createWaveShaperNode(ac, gainStage, audioContext.makeDistortionCurve(400), 'none' );
     distortion.setCurve = function(amount){
         distortion.curve = audioContext.makeDistortionCurve(amount);
     }
-    window.input = audioContext.createUserMediaNode(context, distortion);
+    window.input = audioContext.createUserMediaNode(ac, distortion);
     window.bufferLength = analyser.frequencyBinCount;
     window.dataArray = new Uint8Array(bufferLength);
     var canvas = document.querySelector("#oscilliscope canvas");
