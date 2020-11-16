@@ -64,6 +64,8 @@
                 step="0.01"
                 value="0"
                 id="pan"
+                data-destination="panner"
+                data-parameter="pan"
             >
         </div>
     </fieldset>
@@ -81,6 +83,8 @@
                 step="0.01"
                 value="0.01"
                 id="delayTime"
+                data-destination="delay"
+                data-parameter="delayTime"
             >
         </div>
         <div class="control-group">
@@ -401,20 +405,21 @@
 <script type="text/javascript">
     simplythiser(new AudioContextHelperClass());
     const $ = document.querySelector.bind(document);
+    const g$ = window;
     $('#oscilliscopeVisualiser').height = '200';
     $('#oscilliscopeVisualiser').width = $('#oscilliscope').clientWidth;
-    $('input').addEventListener('change', function (event) {
+    $('body').addEventListener('change', function (event) {
         window[event.target.dataset.destination][event.target.dataset.parameter].exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
     });
-    /*$('#volume').addEventListener('change', function(event){
-        masterVolume.gain.exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02)
-    });*/
-    $('#pan').addEventListener('change', function (event) {
-        panner.pan.exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
-    });
-    $('#delayTime').addEventListener('change', function (event) {
-        delay.delayTime.exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
-    });
+    // $('#volume').addEventListener('change', function(event){
+    //     masterVolume.gain.exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02)
+    // });
+    // $('#pan').addEventListener('change', function (event) {
+    //     panner.pan.exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
+    // });
+    // $('#delayTime').addEventListener('change', function (event) {
+    //     delay.delayTime.exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
+    // });
     $('#delayFeedback').addEventListener('change', function (event) {
         delayFeedback.gain.exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
     });
