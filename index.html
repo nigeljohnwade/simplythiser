@@ -96,6 +96,8 @@
                 step="0.001"
                 value="0.98"
                 id="delayFeedback"
+                data-destination="delayFeedback"
+                data-parameter="gain"
             >
         </div>
     </fieldset>
@@ -410,18 +412,6 @@
     $('#oscilliscopeVisualiser').width = $('#oscilliscope').clientWidth;
     $('body').addEventListener('change', function (event) {
         window[event.target.dataset.destination][event.target.dataset.parameter].exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
-    });
-    // $('#volume').addEventListener('change', function(event){
-    //     masterVolume.gain.exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02)
-    // });
-    // $('#pan').addEventListener('change', function (event) {
-    //     panner.pan.exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
-    // });
-    // $('#delayTime').addEventListener('change', function (event) {
-    //     delay.delayTime.exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
-    // });
-    $('#delayFeedback').addEventListener('change', function (event) {
-        delayFeedback.gain.exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
     });
     $('#dynamicsThreshold').addEventListener('change', function (event) {
         compressor.threshold.exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
