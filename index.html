@@ -53,6 +53,7 @@
                 id="volume"
                 data-destination="masterVolume"
                 data-parameter="gain"
+                data-function="exponentialRampToValueAtTime"
             >
         </div>
         <div class="control-group">
@@ -66,6 +67,7 @@
                 id="pan"
                 data-destination="panner"
                 data-parameter="pan"
+                data-function="exponentialRampToValueAtTime"
             >
         </div>
     </fieldset>
@@ -85,6 +87,7 @@
                 id="delayTime"
                 data-destination="delay"
                 data-parameter="delayTime"
+                data-function="exponentialRampToValueAtTime"
             >
         </div>
         <div class="control-group">
@@ -98,6 +101,7 @@
                 id="delayFeedback"
                 data-destination="delayFeedback"
                 data-parameter="gain"
+                data-function="exponentialRampToValueAtTime"
             >
         </div>
     </fieldset>
@@ -112,6 +116,9 @@
                 step="0.1"
                 value="-24"
                 id="dynamicsThreshold"
+                data-destination="compressor"
+                data-parameter="threshold"
+                data-function="exponentialRampToValueAtTime"
             >
         </div>
         <div class="control-group">
@@ -123,6 +130,9 @@
                 step="1"
                 value="30"
                 id="dynamicsKnee"
+                data-destination="compressor"
+                data-parameter="knee"
+                data-function="exponentialRampToValueAtTime"
             >
         </div>
         <div class="control-group">
@@ -134,6 +144,9 @@
                 step="0.1"
                 value="12"
                 id="dynamicsRatio"
+                data-destination="compressor"
+                data-parameter="ratio"
+                data-function="exponentialRampToValueAtTime"
             >
         </div>
         <div class="control-group">
@@ -145,6 +158,9 @@
                 step="0.001"
                 value="0.003"
                 id="dynamicsAttack"
+                data-destination="compressor"
+                data-parameter="attack"
+                data-function="exponentialRampToValueAtTime"
             >
         </div>
         <div class="control-group">
@@ -156,6 +172,9 @@
                 step="0.001"
                 value="0.25"
                 id="dynamicsRelease"
+                data-destination="compressor"
+                data-parameter="release"
+                data-function="exponentialRampToValueAtTime"
             >
         </div>
     </fieldset>
@@ -256,6 +275,8 @@
                     step="0.001"
                     value="1.5"
                     id="filter1frequency"
+                    data-destination="filter1"
+                    data-parameter="frequency"
                 >
             </div>
             <div class="control-group">
@@ -267,6 +288,9 @@
                     step="0.0001"
                     value="25"
                     id="filter1Q"
+                    data-destination="filter1"
+                    data-parameter="Q"
+                    data-function="exponentialRampToValueAtTime"
                 >
             </div>
             <div class="control-group">
@@ -277,6 +301,9 @@
                     max="40"
                     value="0"
                     id="filter1Gain"
+                    data-destination="filter1"
+                    data-parameter="gain"
+                    data-function="exponentialRampToValueAtTime"
                 >
             </div>
             <div class="control-group">
@@ -375,7 +402,8 @@
                 <option
                     value="square"
                     selected
-                >Square
+                >
+                    Square
                 </option>
                 <option value="sawtooth">Sawtooth</option>
                 <option value="triangle">Triangle</option>
@@ -389,7 +417,8 @@
                 <option
                     value="sawtooth"
                     selected
-                >Sawtooth
+                >
+                    Sawtooth
                 </option>
                 <option value="triangle">Triangle</option>
             </select>
@@ -411,22 +440,20 @@
     $('#oscilliscopeVisualiser').height = '200';
     $('#oscilliscopeVisualiser').width = $('#oscilliscope').clientWidth;
     $('body').addEventListener('change', function (event) {
-        window[event.target.dataset.destination][event.target.dataset.parameter].exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
-    });
-    $('#dynamicsThreshold').addEventListener('change', function (event) {
-        compressor.threshold.exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
-    });
-    $('#dynamicsKnee').addEventListener('change', function (event) {
-        compressor.knee.exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
-    });
-    $('#dynamicsRatio').addEventListener('change', function (event) {
-        compressor.ratio.exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
-    });
-    $('#dynamicsAttack').addEventListener('change', function (event) {
-        compressor.attack.exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
-    });
-    $('#dynamicsRelease').addEventListener('change', function (event) {
-        compressor.release.exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
+        if (event.target.dataset.destination && event.target.dataset.parameter && event.target.dataset.function && event.target.tagName === 'INPUT') {
+            switch (event.target.dataset.function) {
+                case 'exponentialRampToValueAtTime':
+                    g$[event.target.dataset.destination][event.target.dataset.parameter].exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
+                    console.log(`${event.target.dataset.destination} => ${event.target.dataset.parameter}`);
+                    console.log(g$[event.target.dataset.destination][event.target.dataset.parameter]);
+                    console.log(g$[event.target.dataset.destination]);
+                    break;
+                default:
+                    console.log(`${event.target.dataset.destination} => ${event.target.dataset.parameter}`);
+                    console.log(g$[event.target.dataset.destination][event.target.dataset.parameter]);
+                    console.log(g$[event.target.dataset.destination]);
+            }
+        }
     });
     $('#envelopeTrigger').addEventListener('click', function (event) {
         envelope(
@@ -440,24 +467,6 @@
             parseFloat($('#envelopeHold').value),
             parseFloat($('#envelopeRelease').value)
         );
-        //runRandomValueSequencer(ac, 2, [
-        //    [{target: filter1.frequency, min: 50, max: 800}],
-        //    [{target: filter1.frequency, min: 250, max: 1400}],
-        //    [{target: filter1.frequency, min: 50, max: 800}],
-        //    [{target: filter1.frequency, min: 250, max: 1400}],
-        //    [{target: filter1.frequency, min: 50, max: 800}],
-        //    [{target: filter1.frequency, min: 250, max: 1400}],
-        //    [{target: filter1.frequency, min: 50, max: 800}],
-        //    [{target: filter1.frequency, min: 250, max: 1400}],
-        //    [{target: filter1.frequency, min: 50, max: 800}],
-        //    [{target: filter1.frequency, min: 250, max: 1400}],
-        //    [{target: filter1.frequency, min: 50, max: 800}],
-        //    [{target: filter1.frequency, min: 250, max: 1400}],
-        //    [{target: filter1.frequency, min: 50, max: 800}],
-        //    [{target: filter1.frequency, min: 250, max: 1400}],
-        //    [{target: filter1.frequency, min: 50, max: 800}],
-        //    [{target: filter1.frequency, min: 250, max: 1400}]
-        //    ])
     });
     $('#vcaDistortion').addEventListener('change', function (event) {
         distortion.setCurve(Number(event.target.value));
@@ -465,12 +474,6 @@
     });
     $('#filter1frequency').addEventListener('change', function (event) {
         filter1.frequency.exponentialRampToValueAtTime(Math.pow(2, event.target.value) * 55, ac.currentTime + 0.02);
-    });
-    $('#filter1Q').addEventListener('change', function (event) {
-        filter1.Q.exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
-    });
-    $('#filter1Gain').addEventListener('change', function (event) {
-        filter1.gain.exponentialRampToValueAtTime(event.target.value, ac.currentTime + 0.02);
     });
     $('#filter1Type').addEventListener('change', function (event) {
         filter1.type = event.target.value;
